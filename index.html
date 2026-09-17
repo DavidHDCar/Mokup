@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STC - Plataforma Interna de Operaciones | HD Cargo</title>
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Charts API -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="app-layout" data-theme="marina-corporativa" data-color-mode="dark">
+
+    <!-- Botón Flotante de Menú Hamburguesa para modo Drawer (Únicamente 3 rayitas) -->
+    <button id="stc-drawer-toggle-btn" class="stc-drawer-toggle-btn" title="Abrir Menú de Navegación">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <!-- Backdrop Overlay para Fondo del Drawer -->
+    <div id="stc-drawer-backdrop" class="stc-drawer-backdrop"></div>
+
+    <!-- Sidebar Lateral Ergonómica de STC Interno -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="brand" style="text-decoration: none;">
+                <img src="stc-logo-transparent.png" alt="STC Logo" class="stc-brand-logo" id="stc-logo-emblem" onclick="event.preventDefault(); toggleColorMode();" title="Haz clic en el emblema STC para alternar Modo Claro ☀️ / Modo Oscuro 🌙" style="cursor: pointer;">
+                <div class="brand-text">
+                    <span class="stc-title">STC</span>
+                    <span class="stc-tag">Gestión Interna Logística</span>
+                </div>
+            </a>
+            <button class="toggle-sidebar-btn" id="toggle-sidebar" title="Plegar / Expandir menú">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+        </div>
+
+        <!-- Módulos STC Completos -->
+        <nav class="sidebar-nav">
+            <!-- Home -->
+            <div class="nav-group">
+                <a href="index.html" class="nav-group-title active" style="text-decoration: none;">
+                    <div class="nav-title-content">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <span>Home</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 1. Logística -->
+            <div class="nav-group open">
+                <button class="nav-group-title expanded">
+                    <div class="nav-title-content">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                        <span>Logística</span>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="nav-subitems">
+                    <a href="envios.html" class="sub-item">Envíos</a>
+                    <a href="envios.html" class="sub-item">Rutas</a>
+                    <a href="entregas.html" class="sub-item">Entregas</a>
+                    <a href="envios.html" class="sub-item">Rechazos</a>
+                    <a href="envios.html" class="sub-item">Manifiesto</a>
+                    <a href="envios.html" class="sub-item">Seguimiento</a>
+                    <a href="envios.html" class="sub-item">Porteadores</a>
+                </div>
+            </div>
+
+            <!-- 2. Redes -->
+            <div class="nav-group">
+                <button class="nav-group-title">
+                    <div class="nav-title-content">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/><rect x="9" y="16" width="6" height="6" rx="1"/><path d="M5 8v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/><path d="M12 13v3"/></svg>
+                        <span>Redes</span>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="nav-subitems">
+                    <a href="#" class="sub-item">Carriers</a>
+                    <a href="#" class="sub-item">Clientes</a>
+                    <a href="#" class="sub-item">Proveedores</a>
+                    <a href="#" class="sub-item">Empresas</a>
+                </div>
+            </div>
+
+            <!-- 3. Tráfico -->
+            <div class="nav-group">
+                <button class="nav-group-title">
+                    <div class="nav-title-content">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.7 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1z"/></svg>
+                        <span>Tráfico</span>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="nav-subitems">
+                    <a href="#" class="sub-item">Cubicaje</a>
+                    <a href="#" class="sub-item">Coberturas carriers</a>
+                    <a href="#" class="sub-item">Cotizador carriers</a>
+                </div>
+            </div>
+
+            <!-- 4. Tarifas -->
+            <div class="nav-group">
+                <button class="nav-group-title">
+                    <div class="nav-title-content">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <span>Tarifas</span>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="nav-subitems">
+                    <a href="#" class="sub-item">Costos</a>
+                    <a href="#" class="sub-item">Carriers</a>
+                    <a href="#" class="sub-item">Clientes</a>
+                    <a href="#" class="sub-item">Proveedores</a>
+                </div>
+            </div>
+
+            <!-- 5. Tesorería -->
+            <div class="nav-group">
+                <button class="nav-group-title">
+                    <div class="nav-title-content">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                        <span>Tesorería</span>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="nav-subitems">
+                    <a href="#" class="sub-item">Proformas</a>
+                    <a href="#" class="sub-item">Proformas cobros</a>
+                    <a href="#" class="sub-item">Proformas pagos</a>
+                    <a href="#" class="sub-item">Cobros</a>
+                    <a href="#" class="sub-item">Pagos</a>
+                </div>
+            </div>
+
+            <!-- 6. Calidad -->
+            <div class="nav-group">
+                <button class="nav-group-title">
+                    <div class="nav-title-content">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        <span>Calidad</span>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="nav-subitems">
+                    <a href="#" class="sub-item">SGC</a>
+                    <a href="#" class="sub-item">Checklists</a>
+                    <a href="#" class="sub-item">Checklist funcional</a>
+                    <a href="#" class="sub-item">Bitácora horas de servicio</a>
+                    <a href="#" class="sub-item">Checklists instrumentos</a>
+                    <a href="#" class="sub-item">Checklist limpieza</a>
+                    <a href="#" class="sub-item">Mantenimientos</a>
+                    <a href="#" class="sub-item">Checklist insumos</a>
+                    <a href="#" class="sub-item">Calibraciones</a>
+                    <a href="#" class="sub-item">Operadores</a>
+                    <a href="#" class="sub-item">Vale de insumos</a>
+                    <a href="#" class="sub-item">Unidades</a>
+                    <a href="#" class="sub-item">Instrumentos</a>
+                    <a href="#" class="sub-item">Insumos</a>
+                </div>
+            </div>
+
+            <!-- 7. Evaluación -->
+            <div class="nav-group">
+                <button class="nav-group-title">
+                    <div class="nav-title-content">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                        <span>Evaluación</span>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="nav-subitems">
+                    <a href="#" class="sub-item">KPIs</a>
+                    <a href="#" class="sub-item">Reportes</a>
+                    <a href="#" class="sub-item">Crea evaluación</a>
+                    <a href="#" class="sub-item">Crea dashboard</a>
+                </div>
+            </div>
+
+            <!-- 8. Notificaciones -->
+            <div class="nav-group">
+                <button class="nav-group-title">
+                    <div class="nav-title-content">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        <span>Notificaciones</span>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="nav-subitems">
+                    <a href="#" class="sub-item">Crear notificación</a>
+                    <a href="#" class="sub-item">Notificaciones</a>
+                </div>
+            </div>
+
+            <!-- 9. Configuración -->
+            <div class="nav-group">
+                <button class="nav-group-title">
+                    <div class="nav-title-content">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        <span>Configuración</span>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="nav-subitems">
+                    <a href="#" class="sub-item" onclick="openThemeModal()">🎨 Temas y Paletas de Color</a>
+                    <a href="#" class="sub-item">Carga documentos</a>
+                    <a href="#" class="sub-item">Catálogos</a>
+                    <a href="#" class="sub-item">Formatos</a>
+                    <a href="#" class="sub-item">Paquetes</a>
+                    <a href="#" class="sub-item">Contenedores</a>
+                    <a href="#" class="sub-item">Codificaciones</a>
+                    <a href="#" class="sub-item">Coberturas</a>
+                    <a href="#" class="sub-item">Usuarios</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-user-block">
+                <!-- Botón Rápido Modo Claro ☀️ / Oscuro 🌙 -->
+                <button id="btn-mode-toggle-quick" onclick="toggleColorMode()" class="icon-button mode-toggle-btn" title="Cambiar Modo Claro (Día) / Modo Oscuro (Noche)" style="cursor: pointer; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #FFFFFF; border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0;">
+                    🌙
+                </button>
+
+                <div class="user-chip" id="btn-user-avatar" onclick="openThemeModal()" title="Configurar Tema Visual & Paletas de Color" style="cursor: pointer;">
+                    <div class="avatar">DM</div>
+                    <div class="user-details">
+                        <span class="name" id="user-display-name">David Martínez Figueroa</span>
+                        <span class="role">Líder de TI • HD Cargo</span>
+                    </div>
+                </div>
+                <div class="icon-button notification-btn" title="Alertas operativas">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="badge">3</span>
+                </div>
+            </div>
+            <div class="status-indicator">
+                <span class="status-dot green"></span>
+                <span class="status-text">Azure SQL Conectado</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Área de Trabajo STC -->
+    <div class="main-wrapper">
+        <!-- Contenido STC de Alta Confortabilidad Visual -->
+        <main class="content-area">
+            <!-- Header Banner -->
+            <section class="page-header">
+                <div>
+                    <div class="breadcrumb-container">
+                        <span class="breadcrumb-item">Logística</span>
+                        <span class="breadcrumb-sep">/</span>
+                        <span class="breadcrumb-item active">Envíos & Operaciones</span>
+                    </div>
+                    <h1 id="welcome-title">Hola, David</h1>
+                </div>
+
+                <div class="header-filters" style="display: flex; gap: 0.5rem; align-items: center;">
+                    <button class="btn btn-outline btn-sm" onclick="showStcLoader('🚚 Camioneta STC en Ruta', 'Sincronizando operaciones de carga y entregas...', 3000)" title="Probar animación de carga de camioneta STC">🚚 Animación de Carga</button>
+                    <div class="pill-filters">
+                        <button class="pill-btn" data-period="today">Hoy</button>
+                        <button class="pill-btn active" data-period="week">Esta Semana</button>
+                        <button class="pill-btn" data-period="month">Este Mes</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tarjetas Resumen ERP (Amigables a la vista, sin colores estruendosos) -->
+            <section class="kpi-grid">
+                <div class="kpi-card blue" onclick="filterByKpi('ALL')">
+                    <div class="kpi-header">
+                        <span>Total Operaciones</span>
+                        <span class="kpi-badge blue">General</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-total">412</div>
+                    <div class="kpi-foot">Envíos en plataforma</div>
+                </div>
+
+                <div class="kpi-card green" onclick="filterByKpi('EN RUTA')">
+                    <div class="kpi-header">
+                        <span>En Ruta / Proceso</span>
+                        <span class="kpi-badge green">Activos</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-enruta">64</div>
+                    <div class="kpi-foot">Operación en tránsito</div>
+                </div>
+
+                <div class="kpi-card emerald" onclick="filterByKpi('EN TIEMPO')">
+                    <div class="kpi-header">
+                        <span>Cumplimiento SLA</span>
+                        <span class="kpi-badge emerald">92.5% A Tiempo</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-entiempo">381</div>
+                    <div class="kpi-foot">Entregas puntuales</div>
+                </div>
+
+                <div class="kpi-card amber highlight" onclick="filterByKpi('FUERA DE TIEMPO')">
+                    <div class="kpi-header">
+                        <span>Atención Requerida</span>
+                        <span class="kpi-badge danger">Urgente</span>
+                    </div>
+                    <div class="kpi-value text-amber" id="kpi-fueratiempo">31</div>
+                    <div class="kpi-foot">Demoras por atender</div>
+                </div>
+            </section>
+
+            <!-- Selector de Vistas -->
+            <section class="view-mode-bar">
+                <div class="tab-group">
+                    <button class="tab-item active" id="tab-summary" onclick="switchView('summary')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3z"/><path d="M14 3h7v7h-7z"/><path d="M14 14h7v7h-7z"/><path d="M3 14h7v7H3z"/></svg>
+                        <span>Vista Resumen</span>
+                    </button>
+                    <button class="tab-item" id="tab-detailed" onclick="switchView('detailed')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                        <span>Analítica por Cliente</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Google Charts Visuales -->
+            <section class="charts-grid">
+                <!-- 1. Estatus Envíos -->
+                <div class="chart-card view-summary">
+                    <div class="card-header">
+                        <h3>Estatus Operativo de Envíos</h3>
+                        <p>Distribución por fase de entrega</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-estatus-envios" class="google-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 2. Clasificación SLA -->
+                <div class="chart-card view-summary">
+                    <div class="card-header">
+                        <h3>Rendimiento SLA</h3>
+                        <p>Comparativa En Tiempo vs. Fuera de Tiempo</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-clasificacion-envios" class="google-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 3. Estatus Rutas -->
+                <div class="chart-card view-summary">
+                    <div class="card-header">
+                        <h3>Estado de Rutas & Trayectos</h3>
+                        <p>Avance global de unidades y choferes</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-estatus-rutas" class="google-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 4. Demoras por Cliente -->
+                <div class="chart-card view-detailed" style="display: none;">
+                    <div class="card-header">
+                        <h3>Alertas de Demora por Cliente</h3>
+                        <p>Casos prioritarios que requieren seguimiento</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-envios-fueratiempo" class="google-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 5. Volumen por Cliente -->
+                <div class="chart-card view-detailed" style="display: none;">
+                    <div class="card-header">
+                        <h3>Volumen de Operaciones por Cliente</h3>
+                        <p>Concentración de carga</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-envios-cliente" class="google-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 6. En Tiempo por Cliente -->
+                <div class="chart-card view-detailed" style="display: none;">
+                    <div class="card-header">
+                        <h3>Entregas Puntuales por Cliente</h3>
+                        <p>Rendimiento positivo</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-envios-entiempo" class="google-chart"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tabla con Espaciado Cómodo -->
+            <section class="table-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <div>
+                            <h2>Trazabilidad de Envíos en Tiempo Real</h2>
+                            <p id="table-filter-status">Mostrando registros activos desde Azure SQL</p>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-sm btn-primary" onclick="window.location.href='envios.html'">Ver Envíos Completos ↗</button>
+                            <button class="btn btn-sm btn-ghost" onclick="resetTableFilter()">Mostrar Todos</button>
+                            <button class="btn btn-sm btn-outline" id="btn-export-excel">Exportar Excel</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Guía / ID</th>
+                                    <th>Cliente</th>
+                                    <th>Origen / Destino</th>
+                                    <th>Fecha Requerida</th>
+                                    <th>Estatus Envío</th>
+                                    <th>Estatus Ruta</th>
+                                    <th>Cumplimiento SLA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <!-- Filas dinámicas ERP -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </main>
+        <footer class="app-main-footer">
+            <div class="footer-content">
+                <span>HD Cargo - 2026 &copy;</span>
+            </div>
+        </footer>
+    </div>
+
+
+
+    <!-- Overlay de Carga Animado STC - Camioneta Cargo en Movimiento hacia la Derecha (➔) -->
+    <div id="stc-loader-overlay" class="stc-loader-overlay">
+        <div class="stc-truck-container">
+            <svg viewBox="0 0 240 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="stc-truck-svg">
+                <defs>
+                    <!-- Haz de Luz Faro Frontal -->
+                    <linearGradient id="headlight-beam" x1="174" y1="52" x2="238" y2="52" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#FFEB3B" stop-opacity="0.95"/>
+                        <stop offset="100%" stop-color="#FFEB3B" stop-opacity="0"/>
+                    </linearGradient>
+
+                    <!-- Degradado de Cristal del Parabrisas -->
+                    <linearGradient id="van-glass" x1="130" y1="26" x2="158" y2="46" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#E0F2FE"/>
+                        <stop offset="100%" stop-color="#38BDF8"/>
+                    </linearGradient>
+
+                    <!-- Sombra Inferior Chassis -->
+                    <radialGradient id="van-shadow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#000000" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+
+                <!-- Rayitas de velocidad que van para ATRÁS (Fluyendo a la izquierda ⬅) -->
+                <g class="stc-speed-lines-group">
+                    <line x1="38" y1="24" x2="2" y2="24" stroke="var(--primary-blue, #38BDF8)" stroke-width="3" stroke-linecap="round" class="stc-speed-line-fast" />
+                    <line x1="28" y1="36" x2="0" y2="36" stroke="var(--primary-blue, #38BDF8)" stroke-width="2.5" stroke-linecap="round" class="stc-speed-line-mid" />
+                    <line x1="42" y1="50" x2="8" y2="50" stroke="var(--primary-blue, #38BDF8)" stroke-width="2" stroke-linecap="round" class="stc-speed-line-fast" />
+                    <line x1="32" y1="64" x2="4" y2="64" stroke="var(--primary-blue, #38BDF8)" stroke-width="2.5" stroke-linecap="round" class="stc-speed-line-slow" />
+                </g>
+
+                <!-- Sombra proyectada en el suelo -->
+                <ellipse cx="100" cy="85" rx="76" ry="5" fill="url(#van-shadow)" />
+
+                <!-- Proyección de Luz del Faro hacia la Derecha (➔) -->
+                <polygon points="174,48 238,36 238,68 174,56" fill="url(#headlight-beam)" />
+
+                <!-- Carrocería de la Camioneta Cargo Lado Vista hacia la Derecha (➔) (Siempre Blanca #FFFFFF) -->
+                <g class="stc-van-body-group">
+                    <!-- Silueta Base de Carrocería Integrada (Camioneta Van Cargo Blanca) -->
+                    <path d="M 24 70 V 27 Q 24 21, 30 21 H 128 C 142 21, 156 31, 164 40 Q 171 47, 174 53 C 176 57, 175 65, 171 67 L 166 70 H 162.5 A 14.5 14.5 0 0 0 133.5 70 H 72.5 A 14.5 14.5 0 0 0 43.5 70 H 24 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.8" />
+
+                    <!-- Cristal / Ventana del Chofer en Cabina Frontal -->
+                    <path d="M 130 25 H 142 C 152 25, 158 33, 160 41 V 44 H 130 V 25 Z" fill="url(#van-glass)" stroke="#94A3B8" stroke-width="1.2" />
+
+                    <!-- Espejo Retrovisor Lateral -->
+                    <path d="M 158 40 Q 164 40, 163 45 Q 158 47, 157 44 Z" fill="#0F172A" />
+
+                    <!-- Puerta Corrediza de Carga Lateral (Cargo Panel) -->
+                    <rect x="80" y="24" width="48" height="44" rx="3" fill="none" stroke="#CBD5E1" stroke-width="1.5" />
+                    
+                    <!-- Riel Horizontal de Desplazamiento de Puerta Corrediza -->
+                    <line x1="32" y1="45" x2="79" y2="45" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" />
+                    <rect x="74" y="44" width="5" height="3" rx="1" fill="#0F172A" />
+
+                    <!-- Manijas de Puertas (Delantera y Corrediza) -->
+                    <rect x="84" y="47" width="8" height="3.5" rx="1.5" fill="#1E293B" stroke="#94A3B8" stroke-width="0.8" />
+                    <rect x="122" y="47" width="8" height="3.5" rx="1.5" fill="#1E293B" stroke="#94A3B8" stroke-width="0.8" />
+
+                    <!-- Tapa de Depósito de Combustible -->
+                    <rect x="33" y="52" width="7" height="7" rx="1.5" fill="none" stroke="#CBD5E1" stroke-width="1.2" />
+
+                    <!-- Moldura de Protección Lateral Inferior -->
+                    <line x1="26" y1="63" x2="167" y2="63" stroke="#CBD5E1" stroke-width="2" />
+
+                    <!-- Marca Oficial STC con leyenda 'STC by HD Cargo' no lineal -->
+                    <g class="stc-van-logo-decal">
+                        <image href="cargo-van-logo-transparent.png" x="34" y="27" width="26" height="26" preserveAspectRatio="xMidYMid meet" />
+                        <text x="64" y="37" fill="#0F172A" font-size="12" font-weight="900" font-family="system-ui, sans-serif" letter-spacing="1">STC</text>
+                        <text x="64" y="47" fill="#2563EB" font-size="7.5" font-weight="800" font-family="system-ui, sans-serif" letter-spacing="0.3">by HD Cargo</text>
+                        <line x1="64" y1="50" x2="114" y2="50" stroke="#2563EB" stroke-width="1" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- Faro Delantero (➔ Frontal) -->
+                    <path d="M 165 48 C 170 48, 174 51, 174 54 C 174 56, 170 56, 166 54 Z" fill="#FFF9C4" stroke="#F59E0B" stroke-width="1" />
+                    
+                    <!-- Faro Trasero Vertical Stacked (Lado Izquierdo) -->
+                    <rect x="25" y="30" width="3.5" height="18" rx="1.5" fill="#EF4444" stroke="#B91C1C" stroke-width="0.8" />
+
+                    <!-- Defensa Frontal y Faldón Inferior Bumper -->
+                    <path d="M 166 65 L 174 65 C 176 65, 176 69, 172 70 H 164 Z" fill="#1E293B" />
+                    <rect x="24" y="68" width="8" height="3" rx="1" fill="#1E293B" />
+                </g>
+
+                <!-- Ruedas de Acero de Camioneta Cargo Giratorias (↻ Clockwise) -->
+                <!-- Rueda Trasera (Izquierda, Centro x=58, y=72) -->
+                <g class="stc-wheel-group" transform="translate(58, 72)">
+                    <circle cx="0" cy="0" r="12" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+                    <circle cx="0" cy="0" r="8.5" fill="#475569" stroke="#94A3B8" stroke-width="1" />
+                    <g class="stc-wheel-spokes">
+                        <circle cx="0" cy="0" r="3.5" fill="#0F172A" />
+                        <circle cx="0" cy="0" r="1.5" fill="#94A3B8" />
+                        <circle cx="0" cy="-5.8" r="0.9" fill="#0F172A" />
+                        <circle cx="4.1" cy="-4.1" r="0.9" fill="#0F172A" />
+                        <circle cx="5.8" cy="0" r="0.9" fill="#0F172A" />
+                        <circle cx="4.1" cy="4.1" r="0.9" fill="#0F172A" />
+                        <circle cx="0" cy="5.8" r="0.9" fill="#0F172A" />
+                        <circle cx="-4.1" cy="4.1" r="0.9" fill="#0F172A" />
+                        <circle cx="-5.8" cy="0" r="0.9" fill="#0F172A" />
+                        <circle cx="-4.1" cy="-4.1" r="0.9" fill="#0F172A" />
+                    </g>
+                </g>
+
+                <!-- Rueda Delantera (Derecha, Centro x=148, y=72) -->
+                <g class="stc-wheel-group" transform="translate(148, 72)">
+                    <circle cx="0" cy="0" r="12" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+                    <circle cx="0" cy="0" r="8.5" fill="#475569" stroke="#94A3B8" stroke-width="1" />
+                    <g class="stc-wheel-spokes">
+                        <circle cx="0" cy="0" r="3.5" fill="#0F172A" />
+                        <circle cx="0" cy="0" r="1.5" fill="#94A3B8" />
+                        <circle cx="0" cy="-5.8" r="0.9" fill="#0F172A" />
+                        <circle cx="4.1" cy="-4.1" r="0.9" fill="#0F172A" />
+                        <circle cx="5.8" cy="0" r="0.9" fill="#0F172A" />
+                        <circle cx="4.1" cy="4.1" r="0.9" fill="#0F172A" />
+                        <circle cx="0" cy="5.8" r="0.9" fill="#0F172A" />
+                        <circle cx="-4.1" cy="4.1" r="0.9" fill="#0F172A" />
+                        <circle cx="-5.8" cy="0" r="0.9" fill="#0F172A" />
+                        <circle cx="-4.1" cy="-4.1" r="0.9" fill="#0F172A" />
+                    </g>
+                </g>
+
+                <!-- Asfalto Deslizante en el Suelo (Fluyendo a la izquierda ⬅) -->
+                <g class="stc-road-group">
+                    <line x1="0" y1="86" x2="240" y2="86" stroke="var(--primary-blue, #38BDF8)" stroke-width="2.5" stroke-dasharray="14 10" class="stc-road-line" />
+                </g>
+            </svg>
+        </div>
+        <div id="stc-loader-title" class="stc-loader-title">Cargando Operaciones STC...</div>
+        <div id="stc-loader-sub" class="stc-loader-sub">Procesando logística en tiempo real</div>
+    </div>
+
+    <!-- AGENTE IA HEIDI - FLOATING BUTTON & CHAT WINDOW -->
+    <button id="heidi-float-btn" onclick="toggleHeidiChat()" title="Agente IA HeiDi">
+        <span class="heidi-float-label">Agente HeiDi AI</span>
+        <img src="heidi-avatar.png" alt="HeiDi AI Avatar">
+        <span class="heidi-status-badge" title="HeiDi Online"></span>
+    </button>
+
+    <!-- AGENTE IA HEIDI BACKDROP OVERLAY -->
+    <div id="heidi-chat-backdrop" onclick="toggleHeidiChat()"></div>
+
+    <div id="heidi-chat-window">
+        <!-- Header -->
+        <div class="heidi-chat-header">
+            <div class="heidi-header-info">
+                <div class="heidi-avatar-wrap">
+                    <img src="heidi-avatar.png" alt="HeiDi AI">
+                    <span class="online-dot"></span>
+                </div>
+                <div class="heidi-title-box">
+                    <div class="heidi-name">
+                        HeiDi AI
+                        <span class="heidi-tag-pill">Carrier Rastreio</span>
+                    </div>
+                    <span class="heidi-subtext">Validaciones vs STC (Fuente de Verdad)</span>
+                </div>
+            </div>
+            <div class="heidi-header-actions">
+                <button class="heidi-close-btn" onclick="toggleHeidiChat()" title="Cerrar Chat">✕</button>
+            </div>
+        </div>
+
+        <!-- Chat Body -->
+        <div class="heidi-chat-body" id="heidi-chat-messages">
+            <!-- Chips de consulta rápida -->
+            <div class="heidi-quick-chips">
+                <button class="heidi-chip" onclick="heidiAskPrompt('Validar guía DHL 98421034')">🔍 Validar DHL 98421034</button>
+                <button class="heidi-chip" onclick="heidiAskPrompt('Estatus FedEx 7748920192')">🚛 FedEx 7748920192</button>
+                <button class="heidi-chip" onclick="heidiAskPrompt('Checar Paquetexpress STC-88210')">📦 Paquetexpress vs STC</button>
+                <button class="heidi-chip" onclick="heidiAskPrompt('Reporte discrepancias carrier hoy')">📊 Discrepancias Hoy</button>
+            </div>
+
+            <!-- Agente mensaje inicial -->
+            <div class="heidi-msg agent">
+                <img src="heidi-avatar.png" alt="HeiDi" class="heidi-msg-avatar">
+                <div class="heidi-msg-bubble">
+                    ¡Hola! Soy <strong>HeiDi</strong>, tu agente de IA para rastreo de guías externas por Carrier y validación con la <strong>Fuente de Verdad STC</strong>. 🤖✨
+                    <br><br>
+                    Puedes consultarme cualquier número de guía externa (DHL, FedEx, Estafeta, Paquetexpress, Tresguerras) para verificar el estatus oficial vs nuestros registros STC.
+                    <span class="heidi-msg-time">Hace un momento</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Bar -->
+        <div class="heidi-chat-input-container">
+            <input type="text" id="heidi-input-text" class="heidi-input" placeholder="Escribe guía, carrier o consulta..." onkeydown="if(event.key==='Enter') sendHeidiMessage()">
+            <button class="heidi-send-btn" onclick="sendHeidiMessage()" title="Enviar mensaje">
+                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL DE SELECCIÓN DE PALETAS DE COLOR & TEMAS VISUALES -->
+    <div id="modal-theme-selector" class="modal-backdrop" style="display: none;">
+        <div class="modal-card" style="max-width: 960px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle, #E2E8F0); padding-bottom: 0.85rem; margin-bottom: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 1.25rem;">🎨</span>
+                    <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700;">Selector de Paletas de Color & Temas UI</h3>
+                </div>
+                <button class="btn btn-ghost btn-sm" onclick="closeThemeModal()" style="font-size: 1.2rem; cursor: pointer; padding: 2px 8px;">✕</button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 1.25rem;">
+                <p style="font-size: 0.82rem; color: var(--text-muted, #64748B); margin-top: 0; margin-bottom: 1rem;">
+                    Selecciona una de las paletas ejecutivas institucionales diseñadas para STC. La preferencia se aplica en tiempo real y se conserva durante la sesión.
+                </p>
+
+                <!-- Selector de Modo Claro / Modo Oscuro -->
+                <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-main, #0F172A); padding: 0.75rem 1rem; border-radius: 12px; margin-bottom: 1.25rem; border: 1px solid var(--border-subtle, #334155);">
+                    <div>
+                        <strong style="font-size: 0.9rem; color: var(--text-primary, #F8FAFC);">🌓 Modo de Iluminación</strong>
+                        <div style="font-size: 0.75rem; color: var(--text-muted, #94A3B8);">Alterna entre vista Día ☀️ o Noche 🌙 para cualquier paleta seleccionada</div>
+                    </div>
+                    <div style="display: flex; gap: 0.4rem; background: var(--bg-card, #1E293B); padding: 0.25rem; border-radius: 8px; border: 1px solid var(--border-subtle, #334155);">
+                        <button id="btn-mode-light" onclick="setColorMode('light')" style="padding: 0.45rem 0.9rem; border-radius: 6px; border: none; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease; background: transparent; color: var(--text-muted, #94A3B8);">
+                            ☀️ Modo Claro
+                        </button>
+                        <button id="btn-mode-dark" onclick="setColorMode('dark')" style="padding: 0.45rem 0.9rem; border-radius: 6px; border: none; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease; background: var(--primary-blue, #2563EB); color: #FFFFFF;">
+                            🌙 Modo Oscuro
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SELECTOR DE 2 OPCIONES / CATEGORÍAS CÓMODAS PARA EL USUARIO -->
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; background: var(--bg-main, #0F172A); padding: 0.35rem; border-radius: 10px; border: 1px solid var(--border-subtle, #334155);">
+                    <button id="tab-btn-corporate" class="theme-tab-btn active" onclick="switchThemeCategory('corporate')" style="flex: 1; padding: 0.6rem 0.8rem; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                        <span>🏛️</span> <span>Opción 1: Paletas Corporativas (10)</span>
+                    </button>
+                    <button id="tab-btn-creative" class="theme-tab-btn" onclick="switchThemeCategory('creative')" style="flex: 1; padding: 0.6rem 0.8rem; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                        <span>🎨</span> <span>Opción 2: Paletas Creativas & Especiales (8)</span>
+                    </button>
+                </div>
+
+                <!-- PANEL CATEGORÍA 1: CORPORATIVAS (10 PALETAS OFICIALES) -->
+                <div id="theme-category-corporate" class="theme-category-panel">
+                    <!-- 1. Marina corporativa RECOMENDADA -->
+                    <div class="theme-card-option" onclick="applyTheme('marina-corporativa')" id="theme-card-marina-corporativa">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">⚓ Marina corporativa</strong>
+                            <span class="badge" style="background: rgba(22, 184, 166, 0.2); color: #16B8A6; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 700;">RECOMENDADA</span>
+                            <span class="theme-check-badge" id="check-marina-corporativa" style="display: none; font-size: 0.75rem; color: #16B8A6; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #091F33; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #123B56; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F7F9FC; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #16B8A6; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F2994A; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#091F33 • #123B56 • #F7F9FC • #16B8A6 • #F2994A</span>
+                    </div>
+
+                    <!-- 2. Grafito y cobalto -->
+                    <div class="theme-card-option" onclick="applyTheme('grafito-cobalto')" id="theme-card-grafito-cobalto">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">📓 Grafito y cobalto</strong>
+                            <span class="theme-check-badge" id="check-grafito-cobalto" style="display: none; font-size: 0.75rem; color: #2563EB; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #17212B; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #24495E; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F8FAFC; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #2563EB; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #20C997; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#17212B • #24495E • #F8FAFC • #2563EB • #20C997</span>
+                    </div>
+
+                    <!-- 3. Azul petróleo y lima -->
+                    <div class="theme-card-option" onclick="applyTheme('petroleo-lima')" id="theme-card-petroleo-lima">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🛢️ Azul petróleo y lima</strong>
+                            <span class="theme-check-badge" id="check-petroleo-lima" style="display: none; font-size: 0.75rem; color: #84CC16; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #0F2443; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #155E63; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F5FAFA; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #84CC16; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #D6A84F; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#0F2443 • #155E63 • #F5FAFA • #84CC16 • #D6A84F</span>
+                    </div>
+
+                    <!-- 4. Midnight Índigo y Lavanda -->
+                    <div class="theme-card-option" onclick="applyTheme('indigo-lavanda')" id="theme-card-indigo-lavanda">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🔮 Midnight Índigo & Lavanda</strong>
+                            <span class="theme-check-badge" id="check-indigo-lavanda" style="display: none; font-size: 0.75rem; color: #A855F7; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #120E2E; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #1C1642; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F4F0FD; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #A855F7; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #C084FC; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#120E2E • #1C1642 • #F4F0FD • #A855F7 • #C084FC</span>
+                    </div>
+
+                    <!-- 5. Esmeralda y Pizarra -->
+                    <div class="theme-card-option" onclick="applyTheme('pizarra-esmeralda')" id="theme-card-pizarra-esmeralda">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">💎 Esmeralda & Jade</strong>
+                            <span class="theme-check-badge" id="check-pizarra-esmeralda" style="display: none; font-size: 0.75rem; color: #10B981; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #071913; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #0E2920; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F0FDF4; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #10B981; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #34D399; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#071913 • #0E2920 • #F0FDF4 • #10B981 • #34D399</span>
+                    </div>
+
+                    <!-- 6. Azul noche y cian -->
+                    <div class="theme-card-option" onclick="applyTheme('azulnoche-cian')" id="theme-card-azulnoche-cian">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🌃 Azul noche y cian</strong>
+                            <span class="theme-check-badge" id="check-azulnoche-cian" style="display: none; font-size: 0.75rem; color: #06B6D4; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #071A2D; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #164063; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F0F9FF; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #06B6D4; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #FACC15; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#071A2D • #164063 • #F0F9FF • #06B6D4 • #FACC15</span>
+                    </div>
+
+                    <!-- 7. Carbón y naranja logístico -->
+                    <div class="theme-card-option" onclick="applyTheme('carbon-naranja')" id="theme-card-carbon-naranja">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🟧 Carbón y naranja logístico</strong>
+                            <span class="theme-check-badge" id="check-carbon-naranja" style="display: none; font-size: 0.75rem; color: #F97316; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #202124; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #2C4043; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F7F7F5; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F97316; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #22C55E; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#202124 • #2C4043 • #F7F7F5 • #F97316 • #22C55E</span>
+                    </div>
+
+                    <!-- 8. Verde bosque y arena -->
+                    <div class="theme-card-option" onclick="applyTheme('bosque-arena')" id="theme-card-bosque-arena">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🌲 Verde bosque y arena</strong>
+                            <span class="theme-check-badge" id="check-bosque-arena" style="display: none; font-size: 0.75rem; color: #6CC29F; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #163A22; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #24594A; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F5F1E8; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #6CC29F; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #D4A72C; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#163A22 • #24594A • #F5F1E8 • #6CC29F • #D4A72C</span>
+                    </div>
+
+                    <!-- 9. Monocromática azul -->
+                    <div class="theme-card-option" onclick="applyTheme('monocromatica-azul')" id="theme-card-monocromatica-azul">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🧢 Monocromática azul</strong>
+                            <span class="theme-check-badge" id="check-monocromatica-azul" style="display: none; font-size: 0.75rem; color: #1976D2; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #102A43; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #343953; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #627D98; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #EAF2F8; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #1976D2; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#102A43 • #343953 • #627D98 • #EAF2F8 • #1976D2</span>
+                    </div>
+
+                    <!-- 10. Modo oscuro operativo -->
+                    <div class="theme-card-option" onclick="applyTheme('oscuro-operativo')" id="theme-card-oscuro-operativo">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">⚡ Modo oscuro operativo</strong>
+                            <span class="theme-check-badge" id="check-oscuro-operativo" style="display: none; font-size: 0.75rem; color: #22D3EE; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #0F172A; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #1E293B; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #334155; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #22D3EE; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #34D399; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#0F172A • #1E293B • #334155 • #22D3EE • #34D399</span>
+                    </div>
+                </div>
+
+                <!-- PANEL CATEGORÍA 2: CREATIVAS & ESPECIALES (8 PALETAS EXCLUSIVAS) -->
+                <div id="theme-category-creative" class="theme-category-panel" style="display: none;">
+                    <!-- 11. Tokio Sunset -->
+                    <div class="theme-card-option" onclick="applyTheme('tokyo-sunset')" id="theme-card-tokyo-sunset">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🌆 Tokyo Sunset</strong>
+                            <span class="theme-check-badge" id="check-tokyo-sunset" style="display: none; font-size: 0.75rem; color: #E535AB; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #141024; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #201A36; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #FAF5FF; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #E535AB; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #00E5FF; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#141024 • #201A36 • #FAF5FF • #E535AB • #00E5FF</span>
+                    </div>
+
+                    <!-- 12. Antarctic Glacier -->
+                    <div class="theme-card-option" onclick="applyTheme('glacier-frost')" id="theme-card-glacier-frost">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🧊 Antarctic Glacier</strong>
+                            <span class="theme-check-badge" id="check-glacier-frost" style="display: none; font-size: 0.75rem; color: #00B4D8; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #0A192F; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #102A43; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F0F9FF; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #00B4D8; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #90E0EF; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#0A192F • #102A43 • #F0F9FF • #00B4D8 • #90E0EF</span>
+                    </div>
+
+                    <!-- 13. Deep Space Ultraviolet -->
+                    <div class="theme-card-option" onclick="applyTheme('space-ultraviolet')" id="theme-card-space-ultraviolet">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🌌 Space Ultraviolet</strong>
+                            <span class="theme-check-badge" id="check-space-ultraviolet" style="display: none; font-size: 0.75rem; color: #B026FF; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #0A0819; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #15112E; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #FAF5FF; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #B026FF; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #00F0FF; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#0A0819 • #15112E • #FAF5FF • #B026FF • #00F0FF</span>
+                    </div>
+
+                    <!-- 14. Mediterranean Terracotta & Sage -->
+                    <div class="theme-card-option" onclick="applyTheme('terracotta-sage')" id="theme-card-terracotta-sage">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🏺 Terracotta & Sage</strong>
+                            <span class="theme-check-badge" id="check-terracotta-sage" style="display: none; font-size: 0.75rem; color: #E07A5F; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #1C1917; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #292524; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #FAF7F2; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #E07A5F; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #81B29A; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#1C1917 • #292524 • #FAF7F2 • #E07A5F • #81B29A</span>
+                    </div>
+
+                    <!-- 15. Obsidian & Electric Coral -->
+                    <div class="theme-card-option" onclick="applyTheme('obsidian-amber')" id="theme-card-obsidian-amber">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">⚡ Obsidian & Coral</strong>
+                            <span class="theme-check-badge" id="check-obsidian-amber" style="display: none; font-size: 0.75rem; color: #FF3366; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #0B0D14; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #151924; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #FFF1F2; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #FF3366; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #FFB800; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#0B0D14 • #151924 • #FFF1F2 • #FF3366 • #FFB800</span>
+                    </div>
+
+                    <!-- 16. Warm Sunset & Bronze -->
+                    <div class="theme-card-option" onclick="applyTheme('sunset-bronze')" id="theme-card-sunset-bronze">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🌅 Sunset & Bronze</strong>
+                            <span class="theme-check-badge" id="check-sunset-bronze" style="display: none; font-size: 0.75rem; color: #D97706; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #18110D; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #271C15; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #FFFBEB; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #D97706; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #EA580C; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#18110D • #271C15 • #FFFBEB • #D97706 • #EA580C</span>
+                    </div>
+
+                    <!-- 17. Golden Honey & Burnt Sienna -->
+                    <div class="theme-card-option" onclick="applyTheme('honey-sienna')" id="theme-card-honey-sienna">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🍯 Honey & Sienna</strong>
+                            <span class="theme-check-badge" id="check-honey-sienna" style="display: none; font-size: 0.75rem; color: #F59E0B; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #19140B; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #2A2113; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #FEFCE8; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F59E0B; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #B45309; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#19140B • #2A2113 • #FEFCE8 • #F59E0B • #B45309</span>
+                    </div>
+
+                    <!-- 18. Matcha Zen -->
+                    <div class="theme-card-option" onclick="applyTheme('matcha-zen')" id="theme-card-matcha-zen">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <strong style="font-size: 0.88rem;">🍵 Matcha Zen & Bosque</strong>
+                            <span class="theme-check-badge" id="check-matcha-zen" style="display: none; font-size: 0.75rem; color: #10B981; font-weight: 700;">✓ Activo</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-bottom: 0.4rem;">
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #0D1914; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #162921; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #F0FDF4; border: 1px solid #CBD5E1; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #10B981; display: inline-block;"></span>
+                            <span style="width: 18px; height: 18px; border-radius: 50%; background: #D95D39; display: inline-block;"></span>
+                        </div>
+                        <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#0D1914 • #162921 • #F0FDF4 • #10B981 • #D95D39</span>
+                    </div>
+                </div>
+
+                <hr style="margin: 1.25rem 0; border: none; border-top: 1px dashed #CBD5E1;">
+
+                <!-- SECCIÓN DE POSICIÓN DE NAVEGACIÓN STC -->
+                <div style="margin-bottom: 0.75rem;">
+                    <h4 style="margin: 0 0 0.25rem 0; font-size: 0.95rem; font-weight: 700;">🧭 Disposición y Posición de la Navegación (4 Variantes)</h4>
+                    <p style="font-size: 0.78rem; color: var(--text-muted, #64748B); margin: 0;">
+                        Cambia la disposición del menú en vivo: Sidebar Izquierda Clásica, Header Horizontal, Apple Dock Flotante o Drawer Hamburguesa.
+                    </p>
+                </div>
+
+                <div class="nav-pos-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.85rem; margin-bottom: 1.5rem;">
+                    <div class="nav-pos-card-option active" onclick="applyNavPosition('sidebar-left')" id="nav-card-sidebar-left" style="border: 1px solid var(--border-medium, #CBD5E1); padding: 0.65rem; border-radius: 8px; cursor: pointer;">
+                        <strong style="font-size: 0.82rem; display: block; margin-bottom: 0.2rem;">📌 Sidebar Izquierda</strong>
+                        <span style="font-size: 0.7rem; color: var(--text-muted, #64748B);">Navegación lateral vertical clásica de ERP.</span>
+                    </div>
+
+                    <div class="nav-pos-card-option" onclick="applyNavPosition('header-top')" id="nav-card-header-top" style="border: 1px solid var(--border-medium, #CBD5E1); padding: 0.65rem; border-radius: 8px; cursor: pointer;">
+                        <strong style="font-size: 0.82rem; display: block; margin-bottom: 0.2rem;">🔝 Header Superior</strong>
+                        <span style="font-size: 0.7rem; color: var(--text-muted, #64748B);">Barra horizontal fija en la parte superior.</span>
+                    </div>
+
+                    <div class="nav-pos-card-option" onclick="applyNavPosition('floating-dock')" id="nav-card-floating-dock" style="border: 1px solid var(--border-medium, #CBD5E1); padding: 0.65rem; border-radius: 8px; cursor: pointer;">
+                        <strong style="font-size: 0.82rem; display: block; margin-bottom: 0.2rem;">🍏 Dock Flotante Mac OS</strong>
+                        <span style="font-size: 0.7rem; color: var(--text-muted, #64748B);">Dock flotante inferior con zoom fluido.</span>
+                    </div>
+
+                    <div class="nav-pos-card-option" onclick="applyNavPosition('drawer-menu')" id="nav-card-drawer-menu" style="border: 1px solid var(--border-medium, #CBD5E1); padding: 0.65rem; border-radius: 8px; cursor: pointer;">
+                        <strong style="font-size: 0.82rem; display: block; margin-bottom: 0.2rem;">🍔 Drawer Hamburguesa</strong>
+                        <span style="font-size: 0.7rem; color: var(--text-muted, #64748B);">Menú deslizante limpio con botón flotante.</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
