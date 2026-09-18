@@ -63,32 +63,31 @@
    STC ERP - DEFINICIÓN DE COLOR Y REGLAS DE PALETAS (MODO CLARO Y OSCURO)
    ========================================================================== */
 
-/* Fallback Predeterminado para Modo Oscuro */
+/* Fallback Predeterminado para Modo Oscuro (Grafito y Cobalto por Defecto) */
 body[data-color-mode="dark"],
 body:not([data-color-mode]) {
-    --bg-main: #071524;
-    --bg-card: #0F253A;
-    --bg-sidebar: #040D18;
-    --bg-sidebar-hover: #123B56;
-    --bg-sidebar-active: #16B8A6;
-    --text-primary: #F7F9FC;
-    --text-secondary: #A0B2C6;
-    --text-muted: #6B829B;
+    --bg-main: #0C1017;
+    --bg-card: #161F2C;
+    --bg-sidebar: #070A0F;
+    --bg-sidebar-hover: #202D3F;
+    --bg-sidebar-active: #3B82F6;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
     --text-faint: #475569;
     --text-sidebar: #94A3B8;
     --text-sidebar-active: #FFFFFF;
-    --primary-blue: #16B8A6;
-    --primary-hover: #0D9488;
-    --primary-dark: #0F766E;
-    --primary-light: rgba(22, 184, 166, 0.15);
-    --primary-border: #16B8A6;
-    --border-subtle: #173652;
-    --border-medium: #234E75;
+    --primary-blue: #3B82F6;
+    --primary-hover: #2563EB;
+    --primary-dark: #1D4ED8;
+    --primary-light: rgba(59, 130, 246, 0.18);
+    --primary-border: #3B82F6;
+    --border-subtle: #243447;
+    --border-medium: #364E6B;
 }
 
-/* 1. ⚓ Marina Corporativa (Azul Marina Profundo + Turquesa Teal) */
-body[data-theme="marina-corporativa"][data-color-mode="dark"],
-body[data-theme="default"][data-color-mode="dark"] {
+/* 1. Marina Corporativa (Azul Marina Profundo + Turquesa Teal) */
+body[data-theme="marina-corporativa"][data-color-mode="dark"] {
     --bg-main: #061523;
     --bg-card: #0D283E;
     --bg-sidebar: #030C14;
@@ -105,8 +104,7 @@ body[data-theme="default"][data-color-mode="dark"] {
     --border-subtle: #133959;
     --border-medium: #1F5480;
 }
-body[data-theme="marina-corporativa"][data-color-mode="light"],
-body[data-theme="default"][data-color-mode="light"] {
+body[data-theme="marina-corporativa"][data-color-mode="light"] {
     --bg-main: #F4F7FA;
     --bg-card: #FFFFFF;
     --bg-sidebar: #091F33;
@@ -124,8 +122,9 @@ body[data-theme="default"][data-color-mode="light"] {
     --border-medium: #CBD5E1;
 }
 
-/* 2. 📓 Grafito y Cobalto (Carbón Pizarra + Azul Cobalto Eléctrico) */
+/* 2. Grafito y Cobalto (Carbón Pizarra + Azul Cobalto Eléctrico) — PREDETERMINADA */
 body[data-theme="grafito-cobalto"][data-color-mode="dark"],
+body[data-theme="default"][data-color-mode="dark"],
 body[data-theme="cobalt-coral"][data-color-mode="dark"],
 body[data-theme="carbon-titanium"][data-color-mode="dark"] {
     --bg-main: #0C1017;
@@ -145,6 +144,7 @@ body[data-theme="carbon-titanium"][data-color-mode="dark"] {
     --border-medium: #364E6B;
 }
 body[data-theme="grafito-cobalto"][data-color-mode="light"],
+body[data-theme="default"][data-color-mode="light"],
 body[data-theme="cobalt-coral"][data-color-mode="light"],
 body[data-theme="carbon-titanium"][data-color-mode="light"] {
     --bg-main: #F1F5F9;

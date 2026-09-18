@@ -68,7 +68,7 @@
             width: 30px;
             height: 36px;
             flex-shrink: 0;
-            filter: drop-shadow(0 0 8px var(--primary-blue, rgba(14, 165, 233, 0.4)));
+            filter: drop-shadow(0 0 8px rgba(0, 103, 120, 0.45));
             transition: transform 0.25s ease;
         }
 
@@ -92,7 +92,7 @@
             font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
             font-size: 1.15rem;
             font-weight: 800;
-            color: var(--text-primary, #FFFFFF);
+            color: #FFFFFF;
             letter-spacing: -0.02em;
         }
 
@@ -100,7 +100,7 @@
             font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
             font-size: 1.15rem;
             font-weight: 800;
-            color: var(--primary-blue, #38BDF8);
+            color: #00A3BF;
         }
 
         .brand-subtitle {
@@ -424,46 +424,53 @@
             text-decoration: underline;
         }
 
-        /* Botones secundarios (SSO y OTP) */
-        .alt-auth-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 6px;
-        }
-
-        .btn-alt {
-            background: var(--bg-main, rgba(10, 16, 30, 0.7));
-            border: 1px solid var(--border-subtle, rgba(51, 65, 85, 0.7));
-            border-radius: 10px;
-            padding: 10px 14px;
-            font-family: inherit;
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--text-secondary, #CBD5E1);
-            cursor: pointer;
+        /* ── LOGOS DIRECTOS EN TARJETA (SIN MOSAICOS) ── */
+        .social-direct-row {
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-subtle, rgba(51, 65, 85, 0.45));
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            transition: all 0.2s ease;
+            gap: 28px;
         }
 
-        .btn-alt:hover {
-            background: var(--bg-card);
-            border-color: var(--primary-blue);
-            color: var(--text-primary);
+        .social-logo-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.22s ease, opacity 0.22s ease, filter 0.22s ease;
+            opacity: 0.88;
+            cursor: pointer;
         }
 
-        .btn-alt svg {
-            width: 15px;
-            height: 15px;
-            color: var(--text-muted);
-            transition: color 0.2s;
+        .social-logo-link:hover {
+            transform: scale(1.15);
+            opacity: 1;
         }
 
-        .btn-alt:hover svg {
-            color: var(--primary-blue);
+        .hd-direct-logo {
+            height: 32px;
+            width: auto;
+            max-width: 90px;
+            object-fit: contain;
+            border-radius: 4px;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+        }
+
+        .fb-link svg {
+            width: 26px;
+            height: 26px;
+            color: #1877F2;
+            filter: drop-shadow(0 2px 8px rgba(24, 119, 242, 0.35));
+        }
+
+        .ig-link svg {
+            width: 26px;
+            height: 26px;
+            color: #E1306C;
+            filter: drop-shadow(0 2px 8px rgba(225, 48, 108, 0.35));
         }
 
         /* Banner de Auditoría de Seguridad */
@@ -488,12 +495,12 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            color: var(--primary-blue, #38BDF8);
         }
 
         .security-icon svg {
             width: 16px;
             height: 16px;
+            color: var(--primary-blue, #38BDF8);
         }
 
         .security-text {
@@ -583,6 +590,9 @@
             .alt-auth-row {
                 grid-template-columns: 1fr;
             }
+            .social-tiles-grid {
+                gap: 6px;
+            }
             .login-footer {
                 flex-direction: column;
                 gap: 12px;
@@ -592,6 +602,7 @@
                 justify-content: center;
                 flex-wrap: wrap;
             }
+        }
         /* ════════════ ADAPTABILIDAD MODO CLARO (LOGIN) ════════════ */
         body[data-color-mode="light"] {
             background-color: #F8FAFC !important;
@@ -603,18 +614,32 @@
             color: #0F172A !important;
         }
 
+        body[data-color-mode="light"] .login-screen::after {
+            opacity: 0.15;
+        }
+
         body[data-color-mode="light"] .login-card {
             background: #FFFFFF !important;
             border: 1px solid #E2E8F0 !important;
             box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04) !important;
         }
 
-        body[data-color-mode="light"] .brand-title,
+        body[data-color-mode="light"] .brand-title {
+            color: #0F172A !important;
+        }
+
+        body[data-color-mode="light"] .brand-subtitle {
+            color: #64748B !important;
+        }
+
+        body[data-color-mode="light"] .brand-logo-base {
+            fill: #0F172A !important;
+        }
+
         body[data-color-mode="light"] .card-title {
             color: #0F172A !important;
         }
 
-        body[data-color-mode="light"] .brand-subtitle,
         body[data-color-mode="light"] .card-subtitle,
         body[data-color-mode="light"] .env-tag {
             color: #64748B !important;
@@ -637,7 +662,7 @@
         body[data-color-mode="light"] .form-input:focus {
             background: #FFFFFF !important;
             border-color: var(--primary-blue) !important;
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15) !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
         }
 
         body[data-color-mode="light"] .password-toggle {
@@ -652,6 +677,11 @@
             background: #FFFFFF !important;
             border: 1px solid #CBD5E1 !important;
             color: #475569 !important;
+        }
+
+        body[data-color-mode="light"] .mode-toggle-btn:hover {
+            border-color: var(--primary-blue) !important;
+            color: var(--primary-blue) !important;
         }
 
         body[data-color-mode="light"] .status-pill {
@@ -669,20 +699,16 @@
             border: 1px solid #CBD5E1 !important;
         }
 
-        body[data-color-mode="light"] .btn-alt {
-            background: #F1F5F9 !important;
-            border: 1px solid #E2E8F0 !important;
-            color: #334155 !important;
+        body[data-color-mode="light"] .social-direct-row {
+            border-top-color: #E2E8F0 !important;
         }
 
-        body[data-color-mode="light"] .btn-alt:hover {
-            background: #E2E8F0 !important;
-            border-color: var(--primary-blue) !important;
-            color: var(--primary-blue) !important;
+        body[data-color-mode="light"] .social-logo-link {
+            opacity: 0.92;
         }
 
-        body[data-color-mode="light"] .btn-alt svg {
-            color: #64748B !important;
+        body[data-color-mode="light"] .hd-direct-logo {
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
         }
 
         body[data-color-mode="light"] .security-banner {
@@ -706,26 +732,26 @@
         }
     </style>
 </head>
-<body data-theme="marina-corporativa" data-color-mode="dark">
+<body data-theme="grafito-cobalto" data-color-mode="light">
 
 <div class="login-screen">
 
     <!-- ════════════ HEADER SUPERIOR ════════════ -->
     <header class="login-header">
         <a href="index.html" class="brand-block" title="STC 2.0 — Sistema Torre de Control">
-            <!-- Logo Vectorial STC Oficial (Fuste/Copas adaptativos al tema, Base adaptativa) -->
+            <!-- Logo Vectorial STC Oficial (Fuste/Copas en azul/teal oficial, Base adaptativa) -->
             <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="48" y="15" width="4" height="64" fill="var(--primary-blue, #007A8D)" />
-                <polygon points="35,26 65,26 61,33 39,33" fill="var(--primary-blue, #007A8D)" />
-                <polygon points="36,35 64,35 60,42 40,42" fill="var(--primary-blue, #007A8D)" />
-                <rect x="20" y="79" width="60" height="4.5" fill="var(--text-primary, #FFFFFF)" />
+                <rect x="48" y="15" width="4" height="64" fill="var(--primary-blue, #006778)" />
+                <polygon points="35,26 65,26 61,33 39,33" fill="var(--primary-blue, #006778)" />
+                <polygon points="36,35 64,35 60,42 40,42" fill="var(--primary-blue, #006778)" />
+                <rect class="brand-logo-base" x="20" y="79" width="60" height="4.5" fill="var(--text-primary, #FFFFFF)" />
             </svg>
             <div class="brand-meta">
                 <div class="brand-title-row">
                     <span class="brand-title">STC</span>
                     <span class="brand-version">2.0</span>
                 </div>
-                <span class="brand-subtitle">SISTEMA TORRE DE CONTROL</span>
+                <span class="brand-subtitle">SISTEMA TORRE DE CONTROL &bull; BY HD CARGO LOGISTICS</span>
             </div>
         </a>
 
@@ -753,7 +779,7 @@
                 <span class="status-dot"></span>
                 <span>Servicios operando</span>
             </div>
-            <span class="env-tag">PROD &middot; v2.0.14</span>
+            <span class="env-tag">DEV &bull; v1.0.4</span>
         </div>
     </header>
 
@@ -833,24 +859,28 @@
                         <a href="#" class="forgot-link" onclick="handleForgotPassword(event)">Recuperar contraseña</a>
                     </div>
 
-                    <!-- Métodos Alternativos -->
-                    <div class="alt-auth-row">
-                        <button type="button" class="btn-alt" onclick="handleSSO()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="3" width="7" height="7"/>
-                                <rect x="14" y="3" width="7" height="7"/>
-                                <rect x="14" y="14" width="7" height="7"/>
-                                <rect x="3" y="14" width="7" height="7"/>
+                    <!-- Canales y Redes Oficiales Directos (Sin mosaicos/recuadros) -->
+                    <div class="social-direct-row">
+                        <!-- Sitio Web Oficial HD Cargo -->
+                        <a href="https://hdcargo.mx" target="_blank" rel="noopener noreferrer" class="social-logo-link" title="Sitio Web Oficial HD Cargo Logistics (hdcargo.mx)">
+                            <img src="hd-cargo-logistics-logo.jpg" alt="HD Cargo Logistics" class="hd-direct-logo" />
+                        </a>
+
+                        <!-- Facebook -->
+                        <a href="https://www.facebook.com/hdcargologistics" target="_blank" rel="noopener noreferrer" class="social-logo-link fb-link" title="Facebook HD Cargo Logistics">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                             </svg>
-                            <span>SSO corporativo</span>
-                        </button>
-                        <button type="button" class="btn-alt" onclick="handleOTP()">
+                        </a>
+
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/hdcargologistics" target="_blank" rel="noopener noreferrer" class="social-logo-link ig-link" title="Instagram HD Cargo Logistics">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-                                <line x1="12" y1="18" x2="12.01" y2="18"/>
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                             </svg>
-                            <span>Token OTP</span>
-                        </button>
+                        </a>
                     </div>
 
                 </form>
@@ -903,10 +933,10 @@
 </div>
 
 <script>
-    // ── Preservar y sincronizar tema corporativo ──
+    // ── Preservar y sincronizar tema corporativo (Default: claro y grafito-cobalto) ──
     function initTheme() {
-        const savedTheme = localStorage.getItem('stc_theme') || 'marina-corporativa';
-        const savedMode = localStorage.getItem('stc_color_mode') || 'dark';
+        const savedTheme = localStorage.getItem('stc_theme') || 'grafito-cobalto';
+        const savedMode = localStorage.getItem('stc_color_mode') || 'light';
         document.body.setAttribute('data-theme', savedTheme);
         document.body.setAttribute('data-color-mode', savedMode);
         updateModeIcons(savedMode);
@@ -926,7 +956,7 @@
     }
 
     function toggleColorMode() {
-        const currentMode = document.body.getAttribute('data-color-mode') || 'dark';
+        const currentMode = document.body.getAttribute('data-color-mode') || 'light';
         const nextMode = currentMode === 'dark' ? 'light' : 'dark';
         document.body.setAttribute('data-color-mode', nextMode);
         localStorage.setItem('stc_color_mode', nextMode);
@@ -993,14 +1023,6 @@
     function handleForgotPassword(e) {
         e.preventDefault();
         alert('Para recuperar tu contraseña, contacta a la Mesa de Ayuda TI (ext. 204) o al administrador del sistema.');
-    }
-
-    function handleSSO() {
-        alert('🏢 Redirigiendo al portal corporativo Microsoft Azure AD SSO...');
-    }
-
-    function handleOTP() {
-        alert('🔑 Solicita tu código temporal en la app Authenticator registrada.');
     }
 
     // Limpiar alertas al interactuar
