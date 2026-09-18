@@ -2,7 +2,7 @@
 google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(initDashboard);
 
-// Datos de muestra representativos del sistema STC ERP
+// Datos de muestra representativos del sistema HD Cargo Logistics
 const shipmentData = [
     { id: 'ENV-1048', cliente: 'ALMADI', destino: 'Guadalajara, JAL', fecha: '2026-09-15', estatusEnvio: 'ENTREGADO', estatusRuta: 'TERMINADO', sla: 'EN TIEMPO' },
     { id: 'ENV-1049', cliente: 'BOMI GROUP', destino: 'Monterrey, NL', fecha: '2026-09-15', estatusEnvio: 'EN RUTA', estatusRuta: 'EN RUTA', sla: 'FUERA DE TIEMPO' },
@@ -738,3 +738,5 @@ function escapeHtml(str) {
     if (!str) return '';
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
+
+

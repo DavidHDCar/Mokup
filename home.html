@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HD Cargo Logistics - Gestión de Envíos | HD Cargo</title>
+    <title>HD Cargo Logistics - Plataforma Interna de Operaciones | HD Cargo</title>
     <!-- Google Fonts: Inter & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Charts API -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="app-layout" data-theme="marina-corporativa" data-color-mode="dark">
@@ -24,7 +26,7 @@
     <!-- Backdrop Overlay para Fondo del Drawer -->
     <div id="stc-drawer-backdrop" class="stc-drawer-backdrop"></div>
 
-    <!-- Sidebar Lateral Ergonómica -->
+    <!-- Sidebar Lateral Ergonómica de STC Interno -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <a href='home.html' class="brand" style="text-decoration: none;">
@@ -39,10 +41,11 @@
             </button>
         </div>
 
+        <!-- Módulos STC Completos -->
         <nav class="sidebar-nav">
             <!-- Home -->
             <div class="nav-group">
-                <a href='home.html' class="nav-group-title" style="text-decoration: none;">
+                <a href='home.html' class="nav-group-title active" style="text-decoration: none;">
                     <div class="nav-title-content">
                         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                         <span>Home</span>
@@ -52,7 +55,7 @@
 
             <!-- 1. Logística -->
             <div class="nav-group open">
-                <button class="nav-group-title active expanded">
+                <button class="nav-group-title expanded">
                     <div class="nav-title-content">
                         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
                         <span>Logística</span>
@@ -60,13 +63,13 @@
                     <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="nav-subitems">
-                    <a href="envios.html" class="sub-item active">Envíos</a>
-                    <a href="#" class="sub-item">Rutas</a>
+                    <a href="envios.html" class="sub-item">Envíos</a>
+                    <a href="envios.html" class="sub-item">Rutas</a>
                     <a href="entregas.html" class="sub-item">Entregas</a>
-                    <a href="#" class="sub-item">Rechazos</a>
-                    <a href="#" class="sub-item">Manifiesto</a>
-                    <a href="#" class="sub-item">Seguimiento</a>
-                    <a href="#" class="sub-item">Porteadores</a>
+                    <a href="envios.html" class="sub-item">Rechazos</a>
+                    <a href="envios.html" class="sub-item">Manifiesto</a>
+                    <a href="envios.html" class="sub-item">Seguimiento</a>
+                    <a href="envios.html" class="sub-item">Porteadores</a>
                 </div>
             </div>
 
@@ -230,11 +233,11 @@
                 <div class="user-chip" id="btn-user-avatar" onclick="openThemeModal()" title="Configurar Tema Visual & Paletas de Color" style="cursor: pointer;">
                     <div class="avatar">DM</div>
                     <div class="user-details">
-                        <span class="name">David Martínez Figueroa</span>
+                        <span class="name" id="user-display-name">David Martínez Figueroa</span>
                         <span class="role">Líder de TI • HD Cargo</span>
                     </div>
                 </div>
-                <div class="icon-button notification-btn" title="Notificaciones">
+                <div class="icon-button notification-btn" title="Alertas operativas">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
                     <span class="badge">3</span>
                 </div>
@@ -246,606 +249,186 @@
         </div>
     </aside>
 
-    <!-- Área Principal de Gestión -->
+    <!-- Área de Trabajo STC -->
     <div class="main-wrapper">
-        <!-- Contenido Módulo Envíos -->
+        <!-- Contenido STC de Alta Confortabilidad Visual -->
         <main class="content-area">
-            <!-- Header con Selector de Modo de Pantalla -->
+            <!-- Header Banner -->
             <section class="page-header">
                 <div>
                     <div class="breadcrumb-container">
                         <span class="breadcrumb-item">Logística</span>
                         <span class="breadcrumb-sep">/</span>
-                        <span class="breadcrumb-item active" id="mode-breadcrumb">Envíos</span>
+                        <span class="breadcrumb-item active">Envíos & Operaciones</span>
                     </div>
-                    <h1 id="mode-title">Envíos</h1>
+                    <h1 id="welcome-title">Hola, David</h1>
                 </div>
 
-                <!-- Conmutador de las 3 Pantallas de Envíos -->
-                <div class="view-mode-bar" style="border: none;">
-                    <div class="tab-group">
-                        <button class="tab-item active" id="tab-mode-seleccion" onclick="switchEnvioMode('seleccion')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                            <span>Listado</span>
-                        </button>
-                        <button class="tab-item" id="tab-mode-nuevo" onclick="switchEnvioMode('nuevo')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                            <span>Nuevo Envío</span>
-                        </button>
-                        <button class="tab-item" id="tab-mode-edicion" onclick="switchEnvioMode('edicion')">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                            <span>Edición</span>
-                        </button>
+                <div class="header-filters" style="display: flex; gap: 0.5rem; align-items: center;">
+                    <button class="btn btn-outline btn-sm" onclick="showStcLoader('🚚 Camioneta STC en Ruta', 'Sincronizando operaciones de carga y entregas...', 3000)" title="Probar animación de carga de camioneta STC">🚚 Animación de Carga</button>
+                    <div class="pill-filters">
+                        <button class="pill-btn" data-period="today">Hoy</button>
+                        <button class="pill-btn active" data-period="week">Esta Semana</button>
+                        <button class="pill-btn" data-period="month">Este Mes</button>
                     </div>
                 </div>
             </section>
 
-            <!-- ==========================================================================
-                 PANTALLA 1: SELECCIÓN (POR DEFECTO - DATA GRID & BÚSQUEDA)
-                 ========================================================================== -->
-            <div id="screen-seleccion" class="envio-screen-view">
-                <!-- Panel de Filtros -->
-                <section class="filter-card">
-                    <div class="filter-card-header">
-                        <h3>Filtros de Búsqueda de Envíos</h3>
-                        <span class="kpi-badge">Filtros</span>
+            <!-- Tarjetas Resumen ERP (Amigables a la vista, sin colores estruendosos) -->
+            <section class="kpi-grid">
+                <div class="kpi-card blue" onclick="filterByKpi('ALL')">
+                    <div class="kpi-header">
+                        <span>Total Operaciones</span>
+                        <span class="kpi-badge blue">General</span>
                     </div>
+                    <div class="kpi-value" id="kpi-total">412</div>
+                    <div class="kpi-foot">Envíos en plataforma</div>
+                </div>
 
-                    <form id="envios-filter-form" class="filter-grid">
-                        <div class="field-group">
-                            <label for="f-codigo">Código Envío</label>
-                            <input type="text" id="f-codigo" class="form-control" placeholder="Ej. UPS26000312">
-                        </div>
-                        <div class="field-group">
-                            <label for="f-cliente">Cliente</label>
-                            <input type="text" id="f-cliente" class="form-control" placeholder="Nombre de cliente">
-                        </div>
-                        <div class="field-group">
-                            <label for="f-estatus">Estatus</label>
-                            <select id="f-estatus" class="form-control">
-                                <option value="">-- Todos los estatus --</option>
-                                <option value="SOLICITADO">SOLICITADO</option>
-                                <option value="RECOLECTANDO">RECOLECTANDO</option>
-                                <option value="EN RUTA">EN RUTA</option>
-                                <option value="ENTREGANDO">ENTREGANDO</option>
-                                <option value="ENTREGADO">ENTREGADO</option>
-                                <option value="CANCELADO">CANCELADO</option>
-                            </select>
-                        </div>
-                        <div class="field-group">
-                            <label for="f-origen">Origen</label>
-                            <select id="f-origen" class="form-control">
-                                <option value="">Escribe o selecciona origen</option>
-                                <option value="VSA - VILLAHERMOSA">VSA - VILLAHERMOSA</option>
-                                <option value="GPA - GOMEZ PALACIOS">GPA - GOMEZ PALACIOS</option>
-                                <option value="TIJ - TIJUANA">TIJ - TIJUANA</option>
-                                <option value="GDL - GUADALAJARA">GDL - GUADALAJARA</option>
-                                <option value="MEX - CIUDAD DE MEXICO">MEX - CIUDAD DE MEXICO</option>
-                                <option value="QRO - QUERETARO">QRO - QUERETARO</option>
-                                <option value="PUE - PUEBLA">PUE - PUEBLA</option>
-                                <option value="TOL - TOLUCA">TOL - TOLUCA</option>
-                            </select>
-                        </div>
-                        <div class="field-group">
-                            <label for="f-destino">Destino</label>
-                            <select id="f-destino" class="form-control">
-                                <option value="">Escribe o selecciona destino</option>
-                                <option value="MEX - CIUDAD DE MEXICO">MEX - CIUDAD DE MEXICO</option>
-                                <option value="MTY - MONTERREY">MTY - MONTERREY</option>
-                                <option value="PUE - PUEBLA">PUE - PUEBLA</option>
-                                <option value="TOL - TOLUCA">TOL - TOLUCA</option>
-                                <option value="QRO - QUERETARO">QRO - QUERETARO</option>
-                                <option value="GDL - GUADALAJARA">GDL - GUADALAJARA</option>
-                                <option value="LEO - LEON">LEO - LEON</option>
-                                <option value="MID - MERIDA">MID - MERIDA</option>
-                            </select>
-                        </div>
-                        <div class="field-group">
-                            <label for="f-nota">Nota de Entrega</label>
-                            <input type="text" id="f-nota" class="form-control" placeholder="Número o folio de nota">
-                        </div>
-                        <div class="field-group">
-                            <label for="f-destinatario">Destinatario</label>
-                            <input type="text" id="f-destinatario" class="form-control" placeholder="Destinatario final">
-                        </div>
-                        <div class="field-group">
-                            <label for="f-fechainicio">Fecha Envío Inicio</label>
-                            <input type="date" id="f-fechainicio" class="form-control">
-                        </div>
-                        <div class="field-group">
-                            <label for="f-fechafin">Fecha Envío Fin</label>
-                            <input type="date" id="f-fechafin" class="form-control">
-                        </div>
+                <div class="kpi-card green" onclick="filterByKpi('EN RUTA')">
+                    <div class="kpi-header">
+                        <span>En Ruta / Proceso</span>
+                        <span class="kpi-badge green">Activos</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-enruta">64</div>
+                    <div class="kpi-foot">Operación en tránsito</div>
+                </div>
 
-                        <div class="filter-actions-row">
-                            <button type="submit" class="btn btn-primary">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                                <span>Buscar Envíos</span>
-                            </button>
-                            <button type="reset" class="btn btn-ghost" onclick="setTimeout(filterGrid, 50)">Limpiar Filtros</button>
-                        </div>
-                    </form>
-                </section>
+                <div class="kpi-card emerald" onclick="filterByKpi('EN TIEMPO')">
+                    <div class="kpi-header">
+                        <span>Cumplimiento SLA</span>
+                        <span class="kpi-badge emerald">92.5% A Tiempo</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-entiempo">381</div>
+                    <div class="kpi-foot">Entregas puntuales</div>
+                </div>
 
-                <!-- Data Grid (100 Registros en 10 Páginas) -->
-                <section class="table-section">
-                    <div class="table-card">
-                        <div class="table-header">
-                            <div>
-                                <h2>Registros de Envíos en Sistema</h2>
-                                <p id="grid-status-info">Mostrando 100 registros (10 envíos por página)</p>
-                            </div>
-                            <div class="actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
-                                <button class="btn btn-primary btn-sm" onclick="switchEnvioMode('nuevo')">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                                    <span>Nuevo Envío</span>
-                                </button>
-                                <button class="btn btn-secondary btn-sm" onclick="triggerCargaMasiva()">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                    <span>Carga Masiva</span>
-                                </button>
-                                <button class="btn btn-outline btn-sm" id="btn-export-excel" onclick="exportarExcelEnvios()">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
-                                    <span>Exportar Excel</span>
-                                </button>
-                            </div>
-                        </div>
+                <div class="kpi-card amber highlight" onclick="filterByKpi('FUERA DE TIEMPO')">
+                    <div class="kpi-header">
+                        <span>Atención Requerida</span>
+                        <span class="kpi-badge danger">Urgente</span>
+                    </div>
+                    <div class="kpi-value text-amber" id="kpi-fueratiempo">31</div>
+                    <div class="kpi-foot">Demoras por atender</div>
+                </div>
+            </section>
 
-                        <div class="table-container">
-                            <table class="data-table erp-grid">
-                                <thead>
-                                    <tr>
-                                        <th>Código Envío</th>
-                                        <th>Cliente</th>
-                                        <th>Fecha Solicitud</th>
-                                        <th>Fecha Envío</th>
-                                        <th>Origen</th>
-                                        <th>Destino</th>
-                                        <th>Nota de Entrega</th>
-                                        <th>Destinatario</th>
-                                        <th>Pzs</th>
-                                        <th>Kgs/Vol</th>
-                                        <th>Estatus</th>
-                                        <th>Fecha Modificación</th>
-                                        <th>Usuario Mod.</th>
-                                        <th class="text-center">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="grid-body">
-                                    <!-- Filas dinámicas -->
-                                </tbody>
-                            </table>
-                        </div>
+            <!-- Selector de Vistas -->
+            <section class="view-mode-bar">
+                <div class="tab-group">
+                    <button class="tab-item active" id="tab-summary" onclick="switchView('summary')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3z"/><path d="M14 3h7v7h-7z"/><path d="M14 14h7v7h-7z"/><path d="M3 14h7v7H3z"/></svg>
+                        <span>Vista Resumen</span>
+                    </button>
+                    <button class="tab-item" id="tab-detailed" onclick="switchView('detailed')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                        <span>Analítica por Cliente</span>
+                    </button>
+                </div>
+            </section>
 
-                        <div class="table-pagination">
-                            <span class="pagination-info" id="pagination-info">Mostrando 1 - 10 de 100 registros (Página 1 de 10)</span>
-                            <div class="pagination-controls" id="pagination-controls">
-                                <!-- Botones de paginación del 1 al 10 -->
-                            </div>
+            <!-- Google Charts Visuales -->
+            <section class="charts-grid">
+                <!-- 1. Estatus Envíos -->
+                <div class="chart-card view-summary">
+                    <div class="card-header">
+                        <h3>Estatus Operativo de Envíos</h3>
+                        <p>Distribución por fase de entrega</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-estatus-envios" class="google-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 2. Clasificación SLA -->
+                <div class="chart-card view-summary">
+                    <div class="card-header">
+                        <h3>Rendimiento SLA</h3>
+                        <p>Comparativa En Tiempo vs. Fuera de Tiempo</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-clasificacion-envios" class="google-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 3. Estatus Rutas -->
+                <div class="chart-card view-summary">
+                    <div class="card-header">
+                        <h3>Estado de Rutas & Trayectos</h3>
+                        <p>Avance global de unidades y choferes</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-estatus-rutas" class="google-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 4. Demoras por Cliente -->
+                <div class="chart-card view-detailed" style="display: none;">
+                    <div class="card-header">
+                        <h3>Alertas de Demora por Cliente</h3>
+                        <p>Casos prioritarios que requieren seguimiento</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-envios-fueratiempo" class="google-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 5. Volumen por Cliente -->
+                <div class="chart-card view-detailed" style="display: none;">
+                    <div class="card-header">
+                        <h3>Volumen de Operaciones por Cliente</h3>
+                        <p>Concentración de carga</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-envios-cliente" class="google-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 6. En Tiempo por Cliente -->
+                <div class="chart-card view-detailed" style="display: none;">
+                    <div class="card-header">
+                        <h3>Entregas Puntuales por Cliente</h3>
+                        <p>Rendimiento positivo</p>
+                    </div>
+                    <div class="chart-body">
+                        <div id="chart-envios-entiempo" class="google-chart"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tabla con Espaciado Cómodo -->
+            <section class="table-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <div>
+                            <h2>Trazabilidad de Envíos en Tiempo Real</h2>
+                            <p id="table-filter-status">Mostrando registros activos desde Azure SQL</p>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-sm btn-primary" onclick="window.location.href='envios.html'">Ver Envíos Completos ↗</button>
+                            <button class="btn btn-sm btn-ghost" onclick="resetTableFilter()">Mostrar Todos</button>
+                            <button class="btn btn-sm btn-outline" id="btn-export-excel">Exportar Excel</button>
                         </div>
                     </div>
-                </section>
-            </div>
-
-            <!-- ==========================================================================
-                 PANTALLA 2: NUEVO ENVÍO (Mapeo Exacto: Fechas, Ruta, Detalle)
-                 ========================================================================== -->
-            <div id="screen-nuevo" class="envio-screen-view" style="display: none;">
-                <section class="filter-card">
-                    <div class="filter-card-header">
-                        <h3>Registro de Nuevo Envío</h3>
-                        <span class="kpi-badge emerald">Alta en Plataforma</span>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Guía / ID</th>
+                                    <th>Cliente</th>
+                                    <th>Origen / Destino</th>
+                                    <th>Fecha Requerida</th>
+                                    <th>Estatus Envío</th>
+                                    <th>Estatus Ruta</th>
+                                    <th>Cumplimiento SLA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <!-- Filas dinámicas ERP -->
+                            </tbody>
+                        </table>
                     </div>
-
-                    <form id="form-nuevo-envio" class="form-layout-sections">
-                        <!-- Cabecera Principal: Cliente y Envío -->
-                        <div class="form-section-group">
-                            <h4 class="form-section-title">Datos Principales</h4>
-                            <div class="filter-grid">
-                                <div class="field-group">
-                                    <label for="n-cliente">Cliente *</label>
-                                    <input type="text" id="n-cliente" class="form-control" placeholder="Escribe o selecciona cliente" required>
-                                </div>
-                                <div class="field-group">
-                                    <label for="n-envio">Envío (Código / Folio) *</label>
-                                    <input type="text" id="n-envio" class="form-control" placeholder="Ej. UPS26000400" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sección 1: Fechas -->
-                        <div class="form-section-group">
-                            <h4 class="form-section-title">Fechas</h4>
-                            <div class="filter-grid">
-                                <div class="field-group">
-                                    <label for="n-fechaenvio">Fecha Envío *</label>
-                                    <input type="date" id="n-fechaenvio" class="form-control" required>
-                                </div>
-                                <div class="field-group">
-                                    <label for="n-fechaestimada">Fecha Entrega Estimada *</label>
-                                    <input type="date" id="n-fechaestimada" class="form-control" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sección 2: Ruta -->
-                        <div class="form-section-group">
-                            <h4 class="form-section-title">Ruta</h4>
-                            <div class="filter-grid">
-                                <div class="field-group">
-                                    <label for="n-origen">Origen *</label>
-                                    <select id="n-origen" class="form-control" required>
-                                        <option value="">Escribe o selecciona origen</option>
-                                        <option value="VSA - VILLAHERMOSA">VSA - VILLAHERMOSA</option>
-                                        <option value="GPA - GOMEZ PALACIOS">GPA - GOMEZ PALACIOS</option>
-                                        <option value="TIJ - TIJUANA">TIJ - TIJUANA</option>
-                                        <option value="GDL - GUADALAJARA">GDL - GUADALAJARA</option>
-                                    </select>
-                                </div>
-                                <div class="field-group">
-                                    <label for="n-destino">Destino *</label>
-                                    <select id="n-destino" class="form-control" required>
-                                        <option value="">Escribe o selecciona destino</option>
-                                        <option value="MEX - CIUDAD DE MEXICO">MEX - CIUDAD DE MEXICO</option>
-                                        <option value="MTY - MONTERREY">MTY - MONTERREY</option>
-                                        <option value="PUE - PUEBLA">PUE - PUEBLA</option>
-                                        <option value="TOL - TOLUCA">TOL - TOLUCA</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sección 3: Detalle -->
-                        <div class="form-section-group">
-                            <h4 class="form-section-title">Detalle de la Carga</h4>
-                            <div class="filter-grid">
-                                <div class="field-group">
-                                    <label for="n-servicio">Servicio</label>
-                                    <input type="text" id="n-servicio" class="form-control" placeholder="Tipo de servicio">
-                                </div>
-                                <div class="field-group">
-                                    <label for="n-tipoentrega">Tipo Entrega</label>
-                                    <input type="text" id="n-tipoentrega" class="form-control" placeholder="Tipo de entrega">
-                                </div>
-                                <div class="field-group">
-                                    <label for="n-guiaexterna">Guía Externa</label>
-                                    <input type="text" id="n-guiaexterna" class="form-control" placeholder="Número de guía externa">
-                                </div>
-                                <div class="field-group">
-                                    <label for="n-proyecto">Proyecto</label>
-                                    <input type="text" id="n-proyecto" class="form-control" placeholder="Nombre del proyecto">
-                                </div>
-                                <div class="field-group">
-                                    <label for="n-notaentrega">Nota de Entrega</label>
-                                    <input type="text" id="n-notaentrega" class="form-control" placeholder="Folio o remisión">
-                                </div>
-                                <div class="field-group">
-                                    <label for="n-contenido">Contenido</label>
-                                    <input type="text" id="n-contenido" class="form-control" placeholder="Descripción del contenido">
-                                </div>
-                                <div class="field-group" style="grid-column: 1 / -1;">
-                                    <label for="n-observaciones">Observaciones</label>
-                                    <textarea id="n-observaciones" class="form-control" rows="3" placeholder="Observaciones adicionales de la operación..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="filter-actions-row">
-                            <button type="button" class="btn btn-ghost" onclick="switchEnvioMode('seleccion')">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                                <span>Guardar Nuevo Envío</span>
-                            </button>
-                        </div>
-                    </form>
-                </section>
-            </div>
-
-            <!-- ==========================================================================
-                 PANTALLA 3: EDICIÓN ENVÍO (5 PESTAÑAS SUB-NAVEGABLES + BOTONES DE ACCIÓN)
-                 ========================================================================== -->
-            <div id="screen-edicion" class="envio-screen-view" style="display: none;">
-                <div class="edit-main-container">
-                    <!-- Toolbar Superior de Acciones Rápidas del Envío -->
-                    <div class="edit-actions-toolbar">
-                        <div class="toolbar-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; color: var(--primary-blue);"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                            <span>Acciones del Envío</span>
-                        </div>
-                        <div class="toolbar-btn-group">
-                            <button type="button" class="action-pill-btn" onclick="alert('Imprimiendo guía de envío...')">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                                <span>Imprimir Guía</span>
-                            </button>
-                            <button type="button" class="action-pill-btn" onclick="alert('Generando código QR...')">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                                <span>Imprimir QR</span>
-                            </button>
-                            <button type="button" class="action-pill-btn" onclick="alert('Ver rutas asociadas...')">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
-                                <span>Ver Rutas</span>
-                            </button>
-                            <button type="button" class="action-pill-btn" onclick="alert('Ver historial de cambios en Azure SQL...')">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                <span>Historial de Cambios</span>
-                            </button>
-                        </div>
-                    </div>
-                        <!-- Cabecera de Edición -->
-                        <div class="filter-card">
-                            <div class="edit-header-bar">
-                                <div class="edit-head-field">
-                                    <label>Código Envío</label>
-                                    <input type="text" id="e-codigo" class="form-control" value="UPS26000312" readonly style="background-color: #F1F5F9; font-weight: 700;">
-                                </div>
-                                <div class="edit-head-field">
-                                    <label>Cliente</label>
-                                    <input type="text" id="e-cliente" class="form-control" value="UPS HEALTHCARE" readonly style="background-color: #F1F5F9; font-weight: 700;">
-                                </div>
-                                <div class="edit-head-field">
-                                    <label for="e-estatus">Estatus *</label>
-                                    <select id="e-estatus" class="form-control" required style="font-weight: 700; color: var(--primary-blue);">
-                                        <option value="SOLICITADO">SOLICITADO</option>
-                                        <option value="RECOLECTANDO">RECOLECTANDO</option>
-                                        <option value="EN RUTA">EN RUTA</option>
-                                        <option value="ENTREGANDO">ENTREGANDO</option>
-                                        <option value="ENTREGADO">ENTREGADO</option>
-                                        <option value="CANCELADO">CANCELADO</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- Pestañas Internas de Edición (Las 5 Pestañas de la Imagen) -->
-                            <div class="mode-tabs" style="margin-top: 1rem; border-bottom: 2px solid var(--border-color);">
-                                <button class="tab-btn active" id="edit-tab-envio" onclick="switchEditSubTab('envio')">Envío</button>
-                                <button class="tab-btn" id="edit-tab-paquetes" onclick="switchEditSubTab('paquetes')">Paquetes</button>
-                                <button class="tab-btn" id="edit-tab-archivos" onclick="switchEditSubTab('archivos')">Archivos digitales</button>
-                                <button class="tab-btn" id="edit-tab-recoleccion" onclick="switchEditSubTab('recoleccion')">Recolección / Entrega</button>
-                                <button class="tab-btn" id="edit-tab-cotizacion" onclick="switchEditSubTab('cotizacion')">Cotización envío</button>
-                            </div>
-
-                            <form id="form-editar-envio" style="margin-top: 1rem;">
-
-                                <!-- Sub-Pestaña 1: Envío -->
-                                <div id="edit-subtab-envio" class="edit-subtab-content">
-                                    <div class="form-layout-sections">
-                                        <div class="form-section-group">
-                                            <h4 class="form-section-title">Fechas</h4>
-                                            <div class="filter-grid">
-                                                <div class="field-group">
-                                                    <label for="e-fechaenvio">Fecha envío</label>
-                                                    <input type="date" id="e-fechaenvio" class="form-control" value="2026-09-15">
-                                                </div>
-                                                <div class="field-group">
-                                                    <label for="e-fechaestimada">Fecha entrega estimada</label>
-                                                    <input type="date" id="e-fechaestimada" class="form-control" value="2026-09-23">
-                                                </div>
-                                                <div class="field-group">
-                                                    <label for="e-fechareal">Fecha entrega real</label>
-                                                    <input type="datetime-local" id="e-fechareal" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-section-group">
-                                            <h4 class="form-section-title">Ruta</h4>
-                                            <div class="filter-grid">
-                                                <div class="field-group">
-                                                    <label for="e-origen">Origen</label>
-                                                    <input type="text" id="e-origen" class="form-control" value="VSA - VILLAHERMOSA">
-                                                </div>
-                                                <div class="field-group">
-                                                    <label for="e-destino">Destino</label>
-                                                    <input type="text" id="e-destino" class="form-control" value="MEX - CIUDAD DE MEXICO">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-section-group">
-                                            <h4 class="form-section-title">Detalle</h4>
-                                            <div class="filter-grid">
-                                                <div class="field-group">
-                                                    <label for="e-servicio">Servicio</label>
-                                                    <input type="text" id="e-servicio" class="form-control" value="GENERAL">
-                                                </div>
-                                                <div class="field-group">
-                                                    <label for="e-tipoentrega">Tipo entrega</label>
-                                                    <input type="text" id="e-tipoentrega" class="form-control" value="ENTREGA A DOMICILIO">
-                                                </div>
-                                                <div class="field-group">
-                                                    <label for="e-guiaexterna">Guía externa</label>
-                                                    <textarea id="e-guiaexterna" class="form-control resizable-field" rows="1">TBD</textarea>
-                                                </div>
-                                                <div class="field-group">
-                                                    <label for="e-proyecto">Proyecto</label>
-                                                    <textarea id="e-proyecto" class="form-control resizable-field" rows="1">GRUNENTHAL</textarea>
-                                                </div>
-                                                <div class="field-group">
-                                                    <label for="e-notaentrega">Nota de entrega</label>
-                                                    <textarea id="e-notaentrega" class="form-control resizable-field" rows="1">(8497) 8550022039 (2 PZS), (8638) 8550021927</textarea>
-                                                </div>
-                                                <div class="field-group">
-                                                    <label for="e-contenido">Contenido</label>
-                                                    <textarea id="e-contenido" class="form-control resizable-field" rows="1">ACUSES</textarea>
-                                                </div>
-                                                <div class="field-group">
-                                                    <label for="e-codificacion">Codificación</label>
-                                                    <textarea id="e-codificacion" class="form-control resizable-field" rows="1" placeholder="Codificación de envío"></textarea>
-                                                </div>
-                                                <div class="field-group">
-                                                    <label for="e-receptor">Receptor</label>
-                                                    <textarea id="e-receptor" class="form-control resizable-field" rows="1" placeholder="Nombre de receptor"></textarea>
-                                                </div>
-                                                <div class="field-group" style="grid-column: 1 / -1;">
-                                                    <label for="e-observaciones">Observaciones</label>
-                                                    <textarea id="e-observaciones" class="form-control resizable-field" rows="2">GRUNENTHAL (CP)</textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Sub-Pestaña 2: Paquetes -->
-                                <div id="edit-subtab-paquetes" class="edit-subtab-content" style="display: none;">
-                                    <div class="table-header">
-                                        <h4>Listado de Paquetes / Bultos</h4>
-                                        <button type="button" class="btn btn-sm btn-primary" onclick="alert('Agregar nuevo paquete')">+</button>
-                                    </div>
-                                    <div class="table-container">
-                                        <table class="data-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Pzs</th>
-                                                    <th>Kgs</th>
-                                                    <th>Vol</th>
-                                                    <th>Largo (cm)</th>
-                                                    <th>Ancho (cm)</th>
-                                                    <th>Alto (cm)</th>
-                                                    <th>Total kgs</th>
-                                                    <th>Total vol</th>
-                                                    <th>Kgs/Vol mayor</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>1.00</td>
-                                                    <td>1.00</td>
-                                                    <td>0.00</td>
-                                                    <td>0.00</td>
-                                                    <td>0.00</td>
-                                                    <td>1.00</td>
-                                                    <td>1.00</td>
-                                                    <td>1.00</td>
-                                                    <td>✏️ 🗑️</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>1</strong></td>
-                                                    <td><strong>1.00</strong></td>
-                                                    <td><strong>1.00</strong></td>
-                                                    <td><strong>0.00</strong></td>
-                                                    <td><strong>0.00</strong></td>
-                                                    <td><strong>0.00</strong></td>
-                                                    <td><strong>1.00</strong></td>
-                                                    <td><strong>1.00</strong></td>
-                                                    <td><strong>1.00</strong></td>
-                                                    <td>-</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <!-- Sub-Pestaña 3: Archivos digitales -->
-                                <div id="edit-subtab-archivos" class="edit-subtab-content" style="display: none;">
-                                    <h4>Archivos Digitales & Evidencias</h4>
-                                    <div class="filter-card" style="margin-top: 0.5rem; background: #F8FAFC;">
-                                        <div class="field-group">
-                                            <label>Seleccionar Archivo:</label>
-                                            <input type="file" class="form-control">
-                                        </div>
-                                        <button type="button" class="btn btn-sm btn-primary" style="margin-top: 0.5rem; background-color: #F59E0B; border: none;">Subir Archivo</button>
-                                    </div>
-                                    <div class="table-container" style="margin-top: 1rem;">
-                                        <table class="data-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Archivo</th>
-                                                    <th>Nombre</th>
-                                                    <th>Fecha modificación</th>
-                                                    <th>Usuario modificación</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>📄 Guia_firmada.pdf</td>
-                                                    <td>Acuse de Entrega UPS</td>
-                                                    <td>15/09/2026 11:08 AM</td>
-                                                    <td>FNROMERO</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <!-- Sub-Pestaña 4: Recolección / Entrega -->
-                                <div id="edit-subtab-recoleccion" class="edit-subtab-content" style="display: none;">
-                                    <div class="filter-grid" style="grid-template-columns: 1fr 1fr;">
-                                        <!-- Columna Recolección -->
-                                        <div class="form-section-group">
-                                            <h4 class="form-section-title">Recolección</h4>
-                                            <div class="field-group"><label>Fecha inicio</label><input type="datetime-local" class="form-control" value="2026-09-15T00:00"></div>
-                                            <div class="field-group"><label>Fecha fin</label><input type="datetime-local" class="form-control"></div>
-                                            <div class="field-group"><label>Empresa</label><input type="text" class="form-control" value="HD CARGO LOGISTICS (VSA)"></div>
-                                            <div class="field-group"><label>Nombre</label><input type="text" class="form-control" value="HD CARGO LOGISTICS (VSA)"></div>
-                                            <div class="field-group"><label>Email</label><input type="email" class="form-control"></div>
-                                            <div class="field-group"><label>Cel/Tel</label><input type="text" class="form-control"></div>
-                                            <div class="field-group"><label>Calle / Ext.</label><input type="text" class="form-control"></div>
-                                        </div>
-
-                                        <!-- Columna Entrega -->
-                                        <div class="form-section-group">
-                                            <h4 class="form-section-title">Entrega</h4>
-                                            <div class="field-group"><label>Fecha inicio</label><input type="datetime-local" class="form-control"></div>
-                                            <div class="field-group"><label>Fecha fin</label><input type="datetime-local" class="form-control"></div>
-                                            <div class="field-group"><label>Empresa</label><input type="text" class="form-control" value="UPS CUAUTITLAN IZCALLI | EL SABINO"></div>
-                                            <div class="field-group"><label>Nombre</label><input type="text" class="form-control"></div>
-                                            <div class="field-group"><label>Email</label><input type="email" class="form-control"></div>
-                                            <div class="field-group"><label>Cel/Tel</label><input type="text" class="form-control" value="+52 800 743 3877"></div>
-                                            <div class="field-group"><label>Calle / Ext.</label><input type="text" class="form-control" value="AV. JESÚS MARÍA PINO SUÁREZ MZ 3-LOTE 97"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Sub-Pestaña 5: Cotización envío -->
-                                <div id="edit-subtab-cotizacion" class="edit-subtab-content" style="display: none;">
-                                    <div class="table-header">
-                                        <h4>Cotización y Desglose Tarifario</h4>
-                                        <button type="button" class="btn btn-sm btn-primary" onclick="alert('Agregar tarifa')">+</button>
-                                    </div>
-                                    <div class="table-container">
-                                        <table class="data-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Origen</th>
-                                                    <th>Destino</th>
-                                                    <th>Tipo transporte</th>
-                                                    <th>Modalidad</th>
-                                                    <th>Tipo mercancía</th>
-                                                    <th>Servicio</th>
-                                                    <th>Código tarifa</th>
-                                                    <th>Costo</th>
-                                                    <th>Costo extra</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>VSA</td>
-                                                    <td>MEX</td>
-                                                    <td>Terrestre</td>
-                                                    <td>Consolidado</td>
-                                                    <td>General</td>
-                                                    <td>Entrega Domicilio</td>
-                                                    <td>TAR-2026-01</td>
-                                                    <td>$0.00</td>
-                                                    <td>$0.00</td>
-                                                    <td><strong>$0.00</strong></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <!-- Botones Principales de Guardar / Cancelar -->
-                                <div class="filter-actions-row">
-                                    <button type="button" class="btn btn-ghost" onclick="switchEnvioMode('seleccion')">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary" style="background-color: #0F172A;">Guardar Cambios</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                </div>
         </main>
         <footer class="app-main-footer">
             <div class="footer-content">
@@ -862,19 +445,19 @@
             <svg viewBox="0 0 240 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="stc-truck-svg">
                 <defs>
                     <!-- Haz de Luz Faro Frontal -->
-                    <linearGradient id="headlight-beam-env" x1="174" y1="52" x2="238" y2="52" gradientUnits="userSpaceOnUse">
+                    <linearGradient id="headlight-beam" x1="174" y1="52" x2="238" y2="52" gradientUnits="userSpaceOnUse">
                         <stop offset="0%" stop-color="#FFEB3B" stop-opacity="0.95"/>
                         <stop offset="100%" stop-color="#FFEB3B" stop-opacity="0"/>
                     </linearGradient>
 
                     <!-- Degradado de Cristal del Parabrisas -->
-                    <linearGradient id="van-glass-env" x1="130" y1="26" x2="158" y2="46" gradientUnits="userSpaceOnUse">
+                    <linearGradient id="van-glass" x1="130" y1="26" x2="158" y2="46" gradientUnits="userSpaceOnUse">
                         <stop offset="0%" stop-color="#E0F2FE"/>
                         <stop offset="100%" stop-color="#38BDF8"/>
                     </linearGradient>
 
                     <!-- Sombra Inferior Chassis -->
-                    <radialGradient id="van-shadow-env" cx="50%" cy="50%" r="50%">
+                    <radialGradient id="van-shadow" cx="50%" cy="50%" r="50%">
                         <stop offset="0%" stop-color="#000000" stop-opacity="0.4"/>
                         <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
                     </radialGradient>
@@ -889,10 +472,10 @@
                 </g>
 
                 <!-- Sombra proyectada en el suelo -->
-                <ellipse cx="100" cy="85" rx="76" ry="5" fill="url(#van-shadow-env)" />
+                <ellipse cx="100" cy="85" rx="76" ry="5" fill="url(#van-shadow)" />
 
                 <!-- Proyección de Luz del Faro hacia la Derecha (➔) -->
-                <polygon points="174,48 238,36 238,68 174,56" fill="url(#headlight-beam-env)" />
+                <polygon points="174,48 238,36 238,68 174,56" fill="url(#headlight-beam)" />
 
                 <!-- Carrocería de la Camioneta Cargo Lado Vista hacia la Derecha (➔) (Siempre Blanca #FFFFFF) -->
                 <g class="stc-van-body-group">
@@ -900,7 +483,7 @@
                     <path d="M 24 70 V 27 Q 24 21, 30 21 H 128 C 142 21, 156 31, 164 40 Q 171 47, 174 53 C 176 57, 175 65, 171 67 L 166 70 H 162.5 A 14.5 14.5 0 0 0 133.5 70 H 72.5 A 14.5 14.5 0 0 0 43.5 70 H 24 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.8" />
 
                     <!-- Cristal / Ventana del Chofer en Cabina Frontal -->
-                    <path d="M 130 25 H 142 C 152 25, 158 33, 160 41 V 44 H 130 V 25 Z" fill="url(#van-glass-env)" stroke="#94A3B8" stroke-width="1.2" />
+                    <path d="M 130 25 H 142 C 152 25, 158 33, 160 41 V 44 H 130 V 25 Z" fill="url(#van-glass)" stroke="#94A3B8" stroke-width="1.2" />
 
                     <!-- Espejo Retrovisor Lateral -->
                     <path d="M 158 40 Q 164 40, 163 45 Q 158 47, 157 44 Z" fill="#0F172A" />
@@ -1388,8 +971,6 @@
 
                 <hr style="margin: 1.25rem 0; border: none; border-top: 1px dashed #CBD5E1;">
 
-                <hr style="margin: 1.25rem 0; border: none; border-top: 1px dashed #CBD5E1;">
-
                 <!-- SECCIÓN DE POSICIÓN DE NAVEGACIÓN STC -->
                 <div style="margin-bottom: 0.75rem;">
                     <h4 style="margin: 0 0 0.25rem 0; font-size: 0.95rem; font-weight: 700;">🧭 Disposición y Posición de la Navegación (4 Variantes)</h4>
@@ -1424,8 +1005,7 @@
         </div>
     </div>
 
-    <!-- Scripts de la Aplicación -->
-    <script src="envios.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
 
