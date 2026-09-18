@@ -165,19 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Búsqueda en vivo
+    // Búsqueda en vivo vinculada con filtros rápidos
     const searchInput = document.getElementById('grid-search');
     if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            filteredData = enviosData.filter(item =>
-                item.codigo.toLowerCase().includes(query) ||
-                item.cliente.toLowerCase().includes(query) ||
-                item.destinatario.toLowerCase().includes(query) ||
-                item.estatus.toLowerCase().includes(query)
-            );
-            currentPage = 1;
-            renderPage(currentPage);
+        searchInput.addEventListener('input', () => {
+            applyAllEnvioFilters();
         });
     }
 
@@ -296,22 +288,74 @@ function initSidebarAccordions() {
 
 }
 
+let currentQuickStatus = 'todos';
+
+function setQuickStatusFilter(statusKey) {
+    currentQuickStatus = statusKey;
+
+    const pills = document.querySelectorAll('.status-filter-pill');
+    pills.forEach(pill => {
+        if (pill.id === `pill-filter-${statusKey}`) {
+            pill.classList.add('active');
+        } else {
+            pill.classList.remove('active');
+        }
+    });
+
+    applyAllEnvioFilters();
+}
+
+function resetAllEnvioFilters() {
+    currentQuickStatus = 'todos';
+    const pills = document.querySelectorAll('.status-filter-pill');
+    pills.forEach(pill => {
+        if (pill.id === 'pill-filter-todos') {
+            pill.classList.add('active');
+        } else {
+            pill.classList.remove('active');
+        }
+    });
+
+    const form = document.getElementById('envios-filter-form');
+    if (form) form.reset();
+
+    setTimeout(applyAllEnvioFilters, 50);
+}
+
 function filterGrid() {
+    applyAllEnvioFilters();
+}
+
+function applyAllEnvioFilters() {
     const codigo = document.getElementById('f-codigo')?.value.toLowerCase().trim() || '';
     const cliente = document.getElementById('f-cliente')?.value.toLowerCase().trim() || '';
-    const estatus = document.getElementById('f-estatus')?.value || '';
+    const estatusForm = document.getElementById('f-estatus')?.value || '';
     const origen = document.getElementById('f-origen')?.value || '';
     const destino = document.getElementById('f-destino')?.value || '';
     const nota = document.getElementById('f-nota')?.value.toLowerCase().trim() || '';
+    const destinatario = document.getElementById('f-destinatario')?.value.toLowerCase().trim() || '';
 
     filteredData = enviosData.filter(item => {
+        // 1. Filtro Rápido por Estado
+        let matchQuickStatus = true;
+        if (currentQuickStatus === 'transito') {
+            matchQuickStatus = (item.estatus === 'EN RUTA' || item.estatus === 'ENTREGANDO' || item.estatus === 'SOLICITADO' || item.estatus === 'RECOLECTANDO');
+        } else if (currentQuickStatus === 'entregados') {
+            matchQuickStatus = (item.estatus === 'ENTREGADO');
+        } else if (currentQuickStatus === 'incidencias') {
+            matchQuickStatus = (item.estatus === 'CANCELADO' || item.estatus === 'INCIDENCIA' || item.estatus === 'DEMORADO');
+        }
+
+        // 2. Filtros del Formulario
         const matchCodigo = !codigo || item.codigo.toLowerCase().includes(codigo);
         const matchCliente = !cliente || item.cliente.toLowerCase().includes(cliente);
-        const matchEstatus = !estatus || item.estatus === estatus;
+        const matchEstatus = !estatusForm || item.estatus === estatusForm;
         const matchOrigen = !origen || item.origen === origen;
         const matchDestino = !destino || item.destino === destino;
         const matchNota = !nota || item.notaEntrega.toLowerCase().includes(nota);
-        return matchCodigo && matchCliente && matchEstatus && matchOrigen && matchDestino && matchNota;
+        const matchDestinatario = !destinatario || item.destinatario.toLowerCase().includes(destinatario);
+
+        return matchQuickStatus && matchCodigo && matchCliente && matchEstatus && matchOrigen && matchDestino && matchNota && matchDestinatario;
     });
 
     currentPage = 1;
@@ -454,6 +498,10 @@ function closeThemeModal() {
     if (modal) modal.style.display = 'none';
 }
 
+function logoutUser() {
+    window.location.href = 'index.html';
+}
+
 function switchThemeCategory(category) {
     const corporate = document.getElementById('theme-category-corporate');
     const creative = document.getElementById('theme-category-creative');
@@ -567,28 +615,10 @@ function applyFramework(frameworkName) {
     showStcLoader(`⚙️ Framework: ${frameworkName.toUpperCase()}`, 'Ajustando interfaz para eficiencia logística...', 1200);
 }
 
-function applyNavPosition(positionName) {
-    document.body.setAttribute('data-nav-position', positionName);
-    localStorage.setItem('stc_nav_position', positionName);
+function applyNavPosition(positionName = 'drawer-menu') {
+    document.body.setAttribute('data-nav-position', 'drawer-menu');
+    localStorage.setItem('stc_nav_position', 'drawer-menu');
     document.body.classList.remove('drawer-open');
-
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) sidebar.classList.remove('collapsed');
-
-    const posCards = document.querySelectorAll('.nav-pos-card-option');
-    posCards.forEach(card => card.classList.remove('active'));
-
-    const activeCard = document.getElementById(`nav-card-${positionName}`);
-    if (activeCard) activeCard.classList.add('active');
-
-    const labels = {
-        'sidebar-left': 'Sidebar Izquierda Clásica',
-        'header-top': 'Header Superior Horizontal',
-        'floating-dock': 'Dock Flotante Mac OS',
-        'drawer-menu': 'Drawer Deslizante Hamburguesa'
-    };
-
-    showStcLoader(`🗺️ Navegación: ${labels[positionName] || positionName}`, 'Reorganizando el mapa de navegación operativa...', 1200);
 }
 
 let loaderTimeoutId = null;
@@ -620,13 +650,13 @@ function hideStcLoader() {
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('stc_theme') || 'marina-corporativa';
     const savedFramework = localStorage.getItem('stc_framework') || 'standard';
-    const savedNavPos = localStorage.getItem('stc_nav_position') || 'sidebar-left';
+    const savedNavPos = 'drawer-menu';
     const savedColorMode = localStorage.getItem('stc_color_mode') || 'dark';
 
     setColorMode(savedColorMode, false);
     applyTheme(savedTheme);
     applyFramework(savedFramework);
-    applyNavPosition(savedNavPos);
+    applyNavPosition('drawer-menu');
 
     // Controladores de Eventos del Drawer Hamburguesa
     const drawerToggleBtn = document.getElementById('stc-drawer-toggle-btn');

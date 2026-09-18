@@ -12,7 +12,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="app-layout" data-theme="marina-corporativa" data-color-mode="dark">
+<body class="app-layout" data-theme="marina-corporativa" data-color-mode="dark" data-nav-position="drawer-menu">
 
     <!-- Botón Flotante de Menú Hamburguesa para modo Drawer (Únicamente 3 rayitas) -->
     <button id="stc-drawer-toggle-btn" class="stc-drawer-toggle-btn" title="Abrir Menú de Navegación">
@@ -30,7 +30,12 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <a href='home.html' class="brand" style="text-decoration: none;">
-                <img src="stc-logo-transparent.png" alt="STC Logo" class="stc-brand-logo" id="stc-logo-emblem" onclick="event.preventDefault(); toggleColorMode();" title="Haz clic en el emblema STC para alternar Modo Claro ☀️ / Modo Oscuro 🌙" style="cursor: pointer;">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="stc-brand-logo" id="stc-logo-emblem" onclick="event.preventDefault(); toggleColorMode();" title="Haz clic en el emblema STC para alternar Modo Claro ☀️ / Modo Oscuro 🌙" style="cursor: pointer;">
+                    <rect x="48" y="15" width="4" height="64" fill="var(--primary-blue, #006778)" />
+                    <polygon points="35,26 65,26 61,33 39,33" fill="var(--primary-blue, #006778)" />
+                    <polygon points="36,35 64,35 60,42 40,42" fill="var(--primary-blue, #006778)" />
+                    <rect x="20" y="79" width="60" height="4.5" fill="var(--text-primary, #FFFFFF)" />
+                </svg>
                 <div class="brand-text">
                     <span class="stc-title">STC</span>
                     <span class="stc-tag">Gestión Interna Logística</span>
@@ -251,6 +256,39 @@
 
     <!-- Área de Trabajo STC -->
     <div class="main-wrapper">
+        <!-- Header General Unificado STC 2.0 -->
+        <header class="stc-global-topbar">
+            <div class="stc-topbar-left">
+                <button class="stc-topbar-drawer-btn" id="stc-topbar-drawer-btn" title="Abrir Menú de Navegación">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <a href="home.html" class="stc-topbar-brand" title="HD Cargo Logistics - Inicio">
+                    <img src="hd-cargo-logistics-logo.jpg" alt="HD Cargo Logistics" class="stc-topbar-logo-img">
+                    <span class="stc-topbar-brand-title">HD Cargo Logistics</span>
+                </a>
+                <div class="stc-topbar-status-badge">
+                    <span class="stc-topbar-status-dot"></span>
+                    <span>Servicios operando</span>
+                </div>
+                <span class="stc-topbar-version-tag">PROD • v2.9.14</span>
+                <div class="stc-topbar-user-avatar" onclick="openThemeModal()" title="Configuración de Perfil y Temas Visuales">GH</div>
+            </div>
+            <div class="stc-topbar-right">
+                <div class="stc-topbar-pill-stc">
+                    <span class="stc-topbar-pill-dot"></span>
+                    <span>STC 2.0</span>
+                </div>
+                <a href="https://heidi.hdcargo.mx" target="_blank" rel="noopener noreferrer" class="stc-topbar-btn-trazo" title="Ir a Plataforma Trazo (heidi.hdcargo.mx)">
+                    <span class="stc-topbar-pill-dot"></span>
+                    <span>TRAZO</span>
+                </a>
+            </div>
+        </header>
+
         <!-- Contenido STC de Alta Confortabilidad Visual -->
         <main class="content-area">
             <!-- Header Banner -->
@@ -641,7 +679,13 @@
                     <span style="font-size: 1.25rem;">🎨</span>
                     <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700;">Selector de Paletas de Color & Temas UI</h3>
                 </div>
-                <button class="btn btn-ghost btn-sm" onclick="closeThemeModal()" style="font-size: 1.2rem; cursor: pointer; padding: 2px 8px;">✕</button>
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                    <button onclick="logoutUser()" class="btn-logout-modal" title="Cerrar sesión y volver al login" style="display: flex; align-items: center; gap: 6px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); color: #EF4444; padding: 5px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                        <span>Cerrar Sesión</span>
+                    </button>
+                    <button class="btn btn-ghost btn-sm" onclick="closeThemeModal()" style="font-size: 1.2rem; cursor: pointer; padding: 2px 8px;">✕</button>
+                </div>
             </div>
             <div class="modal-body" style="padding-bottom: 1.25rem;">
                 <p style="font-size: 0.82rem; color: var(--text-muted, #64748B); margin-top: 0; margin-bottom: 1rem;">
@@ -968,39 +1012,6 @@
                         <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#0D1914 • #162921 • #F0FDF4 • #10B981 • #D95D39</span>
                     </div>
                 </div>
-
-                <hr style="margin: 1.25rem 0; border: none; border-top: 1px dashed #CBD5E1;">
-
-                <!-- SECCIÓN DE POSICIÓN DE NAVEGACIÓN STC -->
-                <div style="margin-bottom: 0.75rem;">
-                    <h4 style="margin: 0 0 0.25rem 0; font-size: 0.95rem; font-weight: 700;">🧭 Disposición y Posición de la Navegación (4 Variantes)</h4>
-                    <p style="font-size: 0.78rem; color: var(--text-muted, #64748B); margin: 0;">
-                        Cambia la disposición del menú en vivo: Sidebar Izquierda Clásica, Header Horizontal, Apple Dock Flotante o Drawer Hamburguesa.
-                    </p>
-                </div>
-
-                <div class="nav-pos-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.85rem; margin-bottom: 1.5rem;">
-                    <div class="nav-pos-card-option active" onclick="applyNavPosition('sidebar-left')" id="nav-card-sidebar-left" style="border: 1px solid var(--border-medium, #CBD5E1); padding: 0.65rem; border-radius: 8px; cursor: pointer;">
-                        <strong style="font-size: 0.82rem; display: block; margin-bottom: 0.2rem;">📌 Sidebar Izquierda</strong>
-                        <span style="font-size: 0.7rem; color: var(--text-muted, #64748B);">Navegación lateral vertical clásica de ERP.</span>
-                    </div>
-
-                    <div class="nav-pos-card-option" onclick="applyNavPosition('header-top')" id="nav-card-header-top" style="border: 1px solid var(--border-medium, #CBD5E1); padding: 0.65rem; border-radius: 8px; cursor: pointer;">
-                        <strong style="font-size: 0.82rem; display: block; margin-bottom: 0.2rem;">🔝 Header Superior</strong>
-                        <span style="font-size: 0.7rem; color: var(--text-muted, #64748B);">Barra horizontal fija en la parte superior.</span>
-                    </div>
-
-                    <div class="nav-pos-card-option" onclick="applyNavPosition('floating-dock')" id="nav-card-floating-dock" style="border: 1px solid var(--border-medium, #CBD5E1); padding: 0.65rem; border-radius: 8px; cursor: pointer;">
-                        <strong style="font-size: 0.82rem; display: block; margin-bottom: 0.2rem;">🍏 Dock Flotante Mac OS</strong>
-                        <span style="font-size: 0.7rem; color: var(--text-muted, #64748B);">Dock flotante inferior con zoom fluido.</span>
-                    </div>
-
-                    <div class="nav-pos-card-option" onclick="applyNavPosition('drawer-menu')" id="nav-card-drawer-menu" style="border: 1px solid var(--border-medium, #CBD5E1); padding: 0.65rem; border-radius: 8px; cursor: pointer;">
-                        <strong style="font-size: 0.82rem; display: block; margin-bottom: 0.2rem;">🍔 Drawer Hamburguesa</strong>
-                        <span style="font-size: 0.7rem; color: var(--text-muted, #64748B);">Menú deslizante limpio con botón flotante.</span>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

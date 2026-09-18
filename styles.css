@@ -899,32 +899,19 @@ svg {
 
 .stc-brand-logo {
     height: 38px;
-    width: auto;
-    max-width: 48px;
-    object-fit: contain;
+    width: 38px;
     background: transparent !important;
     border-radius: 0;
     padding: 0;
     box-shadow: none;
     flex-shrink: 0;
     transition: all 0.2s ease;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
-}
-
-/* Invert/brighten logo mark for dark theme sidebars so it contrasts cleanly */
-[data-theme="default"] .stc-brand-logo,
-[data-theme="dark-indigo"] .stc-brand-logo,
-[data-theme="obsidian-amber"] .stc-brand-logo,
-[data-theme="tokyo-sunset"] .stc-brand-logo,
-[data-theme="space-ultraviolet"] .stc-brand-logo,
-[data-theme="sunset-bronze"] .stc-brand-logo,
-[data-theme="copper-sand"] .stc-brand-logo,
-[data-theme="honey-sienna"] .stc-brand-logo {
-    filter: brightness(0) invert(1) drop-shadow(0 0 3px rgba(251, 191, 36, 0.5));
+    filter: drop-shadow(0 0 6px var(--primary-blue, rgba(14, 165, 233, 0.4)));
 }
 
 .sidebar.collapsed .stc-brand-logo {
     height: 32px;
+    width: 32px;
 }
 
 .brand-text {
@@ -1335,6 +1322,201 @@ svg {
 .sidebar.collapsed + .main-wrapper {
     margin-left: var(--sidebar-collapsed-width);
     width: calc(100% - var(--sidebar-collapsed-width));
+}
+
+/* ==========================================================================
+   HEADER GENERAL UNIFICADO STC 2.0 (Todas las pantallas)
+   ========================================================================== */
+.stc-global-topbar {
+    height: 52px;
+    background-color: var(--bg-sidebar, #060B13);
+    border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem 0 0.85rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    user-select: none;
+}
+
+.stc-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Botón Hamburguesa Integrado al Topbar */
+.stc-topbar-drawer-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text-primary, #FFFFFF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.stc-topbar-drawer-btn:hover {
+    background: var(--primary-blue, #00BDD6);
+    color: #0E1726;
+    border-color: var(--primary-blue, #00BDD6);
+    box-shadow: 0 0 10px rgba(0, 189, 214, 0.4);
+    transform: scale(1.05);
+}
+
+.stc-topbar-drawer-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Logo HD Cargo Logistics con borde redondeado */
+.stc-topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+}
+
+.stc-topbar-logo-img {
+    height: 28px;
+    width: auto;
+    max-width: 38px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: #FFFFFF;
+    padding: 2px 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.stc-topbar-brand-title {
+    font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-primary, #FFFFFF);
+    letter-spacing: -0.01em;
+}
+
+/* Badge de Estado del Sistema */
+.stc-topbar-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #10B981;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.22rem 0.65rem;
+    border-radius: 20px;
+    letter-spacing: 0.01em;
+}
+
+.stc-topbar-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #10B981;
+    box-shadow: 0 0 6px #10B981;
+}
+
+/* Tag de Versión & Entorno */
+.stc-topbar-version-tag {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    color: var(--text-muted, #94A3B8);
+    opacity: 0.85;
+}
+
+/* Avatar de Usuario */
+.stc-topbar-user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--primary-blue, #006778);
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 0.72rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.stc-topbar-user-avatar:hover {
+    transform: scale(1.1);
+}
+
+/* Lado Derecho */
+.stc-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Badge / Botón STC 2.0 */
+.stc-topbar-pill-stc {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(0, 189, 214, 0.12);
+    border: 1px solid rgba(0, 189, 214, 0.35);
+    color: var(--primary-blue, #00BDD6);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.28rem 0.75rem;
+    border-radius: 20px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    cursor: default;
+}
+
+.stc-topbar-pill-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--primary-blue, #00BDD6);
+    box-shadow: 0 0 6px var(--primary-blue, #00BDD6);
+}
+
+/* Botón TRAZO que redirige a heidi.hdcargo.mx */
+.stc-topbar-btn-trazo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(0, 189, 214, 0.15);
+    border: 1px solid rgba(0, 189, 214, 0.4);
+    color: var(--primary-blue, #00BDD6);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.28rem 0.85rem;
+    border-radius: 20px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.stc-topbar-btn-trazo:hover {
+    background: var(--primary-blue, #00BDD6);
+    color: #0E1726;
+    border-color: var(--primary-blue, #00BDD6);
+    box-shadow: 0 0 14px rgba(0, 189, 214, 0.5);
+    transform: translateY(-1px);
+}
+
+.stc-topbar-btn-trazo .stc-topbar-pill-dot {
+    background-color: currentColor;
+    box-shadow: 0 0 6px currentColor;
 }
 
 .topbar {
@@ -1771,6 +1953,92 @@ svg {
     font-size: 0.98rem;
     font-weight: 700;
     color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Barra de Filtros Rápidos de Estado (Envíos & Entregas)
+   ========================================================================== */
+.quick-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.65rem 0.85rem;
+    background: var(--bg-main, #F8FAFC);
+    border: 1px solid var(--border-subtle, #E2E8F0);
+    border-radius: var(--radius-card, 10px);
+    flex-wrap: wrap;
+}
+
+.quick-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 260px;
+}
+
+.quick-search-wrapper .search-icon {
+    position: absolute;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted, #94A3B8);
+    pointer-events: none;
+}
+
+.quick-search-input {
+    width: 100%;
+    padding: 0.55rem 0.75rem 0.55rem 2.25rem;
+    background: var(--bg-card, #FFFFFF);
+    border: 1px solid var(--border-subtle, #CBD5E1);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--text-primary, #0F172A);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.quick-search-input:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px var(--primary-light, rgba(37, 99, 235, 0.15));
+}
+
+.status-pill-filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+}
+
+.status-filter-pill {
+    padding: 0.45rem 1.05rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle, #CBD5E1);
+    background: var(--bg-card, #FFFFFF);
+    color: var(--text-secondary, #475569);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.status-filter-pill:hover {
+    background: var(--bg-sidebar-hover, #F1F5F9);
+    color: var(--text-primary, #0F172A);
+    border-color: var(--primary-blue);
+}
+
+.status-filter-pill.active {
+    background: var(--primary-light, #EFF6FF);
+    color: var(--primary-blue, #2563EB);
+    border-color: var(--primary-blue, #2563EB);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .table-header p {
@@ -3133,14 +3401,10 @@ body[data-nav-position="floating-dock"] .main-wrapper {
     width: 100% !important;
 }
 
-/* --- 4. Drawer Deslizante Hamburguesa (data-nav-position="drawer-menu") --- */
+/* --- 4. Drawer Deslizante Hamburguesa (Modo de Navegación Único & Definitivo) --- */
 
 /* Botón Hamburguesa Flotante - Únicamente Ícono de 3 rayitas */
 .stc-drawer-toggle-btn {
-    display: none;
-}
-
-body[data-nav-position="drawer-menu"] .stc-drawer-toggle-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3160,18 +3424,19 @@ body[data-nav-position="drawer-menu"] .stc-drawer-toggle-btn {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-body[data-nav-position="drawer-menu"] .stc-drawer-toggle-btn:hover {
+.stc-drawer-toggle-btn:hover {
     transform: scale(1.08);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     background: var(--primary-blue, #2563EB);
 }
 
-body[data-nav-position="drawer-menu"] .stc-drawer-toggle-btn svg {
+.stc-drawer-toggle-btn svg {
     width: 22px;
     height: 22px;
 }
 
 /* Ocultar totalmente el botón flotante cuando el drawer esté ABIERTO */
+body.drawer-open .stc-drawer-toggle-btn,
 body[data-nav-position="drawer-menu"].drawer-open .stc-drawer-toggle-btn {
     display: none !important;
     opacity: 0 !important;
@@ -3244,7 +3509,12 @@ body[data-nav-position="drawer-menu"].drawer-open .sidebar {
 body[data-nav-position="drawer-menu"] .main-wrapper {
     margin-left: 0 !important;
     width: 100% !important;
-    padding-top: 52px !important;
+    padding-top: 0 !important;
+}
+
+/* Ocultar botón flotante suelto si el topbar tiene el suyo integrado */
+.stc-drawer-toggle-btn {
+    display: none !important;
 }
 
 /* ==========================================================================

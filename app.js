@@ -363,6 +363,10 @@ function closeThemeModal() {
     if (modal) modal.style.display = 'none';
 }
 
+function logoutUser() {
+    window.location.href = 'index.html';
+}
+
 function switchThemeCategory(category) {
     const corporate = document.getElementById('theme-category-corporate');
     const creative = document.getElementById('theme-category-creative');
@@ -476,28 +480,10 @@ function applyFramework(frameworkName) {
     showStcLoader(`⚙️ Framework: ${frameworkName.toUpperCase()}`, 'Ajustando interfaz para eficiencia logística...', 1200);
 }
 
-function applyNavPosition(positionName) {
-    document.body.setAttribute('data-nav-position', positionName);
-    localStorage.setItem('stc_nav_position', positionName);
+function applyNavPosition(positionName = 'drawer-menu') {
+    document.body.setAttribute('data-nav-position', 'drawer-menu');
+    localStorage.setItem('stc_nav_position', 'drawer-menu');
     document.body.classList.remove('drawer-open');
-
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) sidebar.classList.remove('collapsed');
-
-    const posCards = document.querySelectorAll('.nav-pos-card-option');
-    posCards.forEach(card => card.classList.remove('active'));
-
-    const activeCard = document.getElementById(`nav-card-${positionName}`);
-    if (activeCard) activeCard.classList.add('active');
-
-    const labels = {
-        'sidebar-left': 'Sidebar Izquierda Clásica',
-        'header-top': 'Header Superior Horizontal',
-        'floating-dock': 'Dock Flotante Mac OS',
-        'drawer-menu': 'Drawer Deslizante Hamburguesa'
-    };
-
-    showStcLoader(`🗺️ Navegación: ${labels[positionName] || positionName}`, 'Reorganizando el mapa de navegación operativa...', 1200);
 }
 
 // Control del Loader Animado STC (Camioneta en Movimiento)
@@ -530,13 +516,13 @@ function hideStcLoader() {
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('stc_theme') || 'marina-corporativa';
     const savedFramework = localStorage.getItem('stc_framework') || 'standard';
-    const savedNavPos = localStorage.getItem('stc_nav_position') || 'sidebar-left';
+    const savedNavPos = 'drawer-menu';
     const savedColorMode = localStorage.getItem('stc_color_mode') || 'dark';
 
     setColorMode(savedColorMode, false);
     applyTheme(savedTheme);
     applyFramework(savedFramework);
-    applyNavPosition(savedNavPos);
+    applyNavPosition('drawer-menu');
 
     // Controladores de Eventos del Drawer Hamburguesa
     const drawerToggleBtn = document.getElementById('stc-drawer-toggle-btn');
