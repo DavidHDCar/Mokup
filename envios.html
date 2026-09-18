@@ -264,9 +264,14 @@
                         <line x1="3" y1="18" x2="21" y2="18"></line>
                     </svg>
                 </button>
-                <a href="home.html" class="stc-topbar-brand" title="HD Cargo Logistics - Inicio">
-                    <img src="hd-cargo-logo.svg" alt="HD Cargo Logistics" class="stc-topbar-logo-img">
-                    <span class="stc-topbar-brand-title">HD Cargo Logistics</span>
+                <a href="home.html" class="stc-topbar-brand" title="Sistema Torre de Control - Inicio">
+                    <svg class="stc-topbar-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="48" y="15" width="4" height="64" fill="var(--primary-blue, #00BDD6)" />
+                        <polygon points="35,26 65,26 61,33 39,33" fill="var(--primary-blue, #00BDD6)" />
+                        <polygon points="36,35 64,35 60,42 40,42" fill="var(--primary-blue, #00BDD6)" />
+                        <rect x="20" y="79" width="60" height="4.5" fill="var(--text-primary, #FFFFFF)" />
+                    </svg>
+                    <span class="stc-topbar-brand-title">Sistema Torre de Control</span>
                 </a>
             </div>
 
@@ -288,26 +293,26 @@
                     <span class="stc-topbar-status-dot"></span>
                     <span>Servicios operando</span>
                 </div>
-                <span class="stc-topbar-version-tag">PROD • v2.9.14</span>
-                <div class="stc-topbar-user-avatar" onclick="openThemeModal()" title="Configuración de Perfil y Temas Visuales">GH</div>
+                <span class="stc-topbar-version-tag">DEV • v1.0.4</span>
+                <div class="stc-topbar-user-avatar" onclick="openThemeModal()" title="Configuración de Perfil (David Martínez) y Temas Visuales">DM</div>
             </div>
         </header>
 
         <!-- Contenido Módulo Envíos -->
         <main class="content-area">
-            <!-- Header con Selector de Modo de Pantalla -->
+            <!-- Header de Pantalla Envíos -->
             <section class="page-header">
                 <div>
                     <div class="breadcrumb-container">
                         <span class="breadcrumb-item">Logística</span>
                         <span class="breadcrumb-sep">/</span>
-                        <span class="breadcrumb-item active" id="mode-breadcrumb">Envíos</span>
+                        <span class="breadcrumb-item active" id="mode-breadcrumb" onclick="switchEnvioMode('seleccion')" style="cursor: pointer;" title="Volver al Listado de Envíos">Envíos</span>
                     </div>
                     <h1 id="mode-title">Envíos</h1>
                 </div>
 
-                <!-- Conmutador de las 3 Pantallas de Envíos -->
-                <div class="view-mode-bar" style="border: none;">
+                <!-- Conmutador de Modos (Oculto según especificación) -->
+                <div class="view-mode-bar" style="display: none;">
                     <div class="tab-group">
                         <button class="tab-item active" id="tab-mode-seleccion" onclick="switchEnvioMode('seleccion')">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
@@ -780,9 +785,14 @@
                                                     <td>0.00</td>
                                                     <td>1.00</td>
                                                     <td>1.00</td>
-                                                    <td>1.00</td>
-                                                    <td>✏️ 🗑️</td>
-                                                </tr>
+                                                    <td>
+                                                        <button class="btn-table-action" title="Editar paquete" style="margin-right: 4px;">
+                                                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                                        </button>
+                                                        <button class="btn-table-action" title="Eliminar paquete">
+                                                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                                        </button>
+                                                    </td>
                                                 <tr>
                                                     <td><strong>1</strong></td>
                                                     <td><strong>1.00</strong></td>
@@ -912,7 +922,7 @@
         </main>
         <footer class="app-main-footer">
             <div class="footer-content">
-                <span>HD Cargo - 2026 &copy;</span>
+                <span>2026 HD Cargo Logistics &copy;</span>
             </div>
         </footer>
     </div>

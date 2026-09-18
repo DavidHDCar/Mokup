@@ -592,6 +592,117 @@
                 justify-content: center;
                 flex-wrap: wrap;
             }
+        /* ════════════ ADAPTABILIDAD MODO CLARO (LOGIN) ════════════ */
+        body[data-color-mode="light"] {
+            background-color: #F8FAFC !important;
+            color: #0F172A !important;
+        }
+
+        body[data-color-mode="light"] .login-screen {
+            background-color: #F8FAFC !important;
+            color: #0F172A !important;
+        }
+
+        body[data-color-mode="light"] .login-card {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        body[data-color-mode="light"] .brand-title,
+        body[data-color-mode="light"] .card-title {
+            color: #0F172A !important;
+        }
+
+        body[data-color-mode="light"] .brand-subtitle,
+        body[data-color-mode="light"] .card-subtitle,
+        body[data-color-mode="light"] .env-tag {
+            color: #64748B !important;
+        }
+
+        body[data-color-mode="light"] .form-label {
+            color: #334155 !important;
+        }
+
+        body[data-color-mode="light"] .form-input {
+            background: #FFFFFF !important;
+            border: 1.5px solid #CBD5E1 !important;
+            color: #0F172A !important;
+        }
+
+        body[data-color-mode="light"] .form-input::placeholder {
+            color: #94A3B8 !important;
+        }
+
+        body[data-color-mode="light"] .form-input:focus {
+            background: #FFFFFF !important;
+            border-color: var(--primary-blue) !important;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15) !important;
+        }
+
+        body[data-color-mode="light"] .password-toggle {
+            color: #64748B !important;
+        }
+
+        body[data-color-mode="light"] .password-toggle:hover {
+            color: var(--primary-blue) !important;
+        }
+
+        body[data-color-mode="light"] .mode-toggle-btn {
+            background: #FFFFFF !important;
+            border: 1px solid #CBD5E1 !important;
+            color: #475569 !important;
+        }
+
+        body[data-color-mode="light"] .status-pill {
+            background: rgba(16, 185, 129, 0.12) !important;
+            border: 1px solid rgba(16, 185, 129, 0.35) !important;
+            color: #065F46 !important;
+        }
+
+        body[data-color-mode="light"] .checkbox-label {
+            color: #475569 !important;
+        }
+
+        body[data-color-mode="light"] .checkbox-label input[type="checkbox"] {
+            background: #FFFFFF !important;
+            border: 1px solid #CBD5E1 !important;
+        }
+
+        body[data-color-mode="light"] .btn-alt {
+            background: #F1F5F9 !important;
+            border: 1px solid #E2E8F0 !important;
+            color: #334155 !important;
+        }
+
+        body[data-color-mode="light"] .btn-alt:hover {
+            background: #E2E8F0 !important;
+            border-color: var(--primary-blue) !important;
+            color: var(--primary-blue) !important;
+        }
+
+        body[data-color-mode="light"] .btn-alt svg {
+            color: #64748B !important;
+        }
+
+        body[data-color-mode="light"] .security-banner {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        body[data-color-mode="light"] .security-text {
+            color: #475569 !important;
+        }
+
+        body[data-color-mode="light"] .login-footer,
+        body[data-color-mode="light"] .footer-links a,
+        body[data-color-mode="light"] .support-item {
+            color: #64748B !important;
+        }
+
+        body[data-color-mode="light"] .footer-links a:hover {
+            color: var(--primary-blue) !important;
         }
     </style>
 </head>
@@ -676,7 +787,7 @@
                                 class="form-input" 
                                 id="username" 
                                 name="username" 
-                                value="ghernandez" 
+                                value="DMARTINEZ" 
                                 placeholder="nombre.apellido" 
                                 autocomplete="username" 
                                 required 
@@ -764,7 +875,7 @@
     <!-- ════════════ FOOTER INFERIOR ════════════ -->
     <footer class="login-footer">
         <div class="footer-links">
-            <span>2026 HD Cargo Logistics</span>
+            <span>2026 HD Cargo Logistics &copy;</span>
             <span>&middot;</span>
             <a href="#">Aviso de privacidad</a>
             <span>&middot;</span>

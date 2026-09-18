@@ -228,16 +228,31 @@ function switchEnvioMode(mode) {
 // Cargar envío específico en pantalla de Edición
 function editEnvio(codigo) {
     const item = enviosData.find(d => d.codigo === codigo) || enviosData[0];
+    if (!item) return;
     
-    document.getElementById('e-codigo').value = item.codigo;
-    document.getElementById('e-cliente').value = item.cliente;
-    document.getElementById('e-estatus').value = item.estatus;
-    document.getElementById('e-nota').value = item.notaEntrega;
+    const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = (val !== undefined && val !== null) ? val : '';
+    };
+
+    setVal('e-codigo', item.codigo);
+    setVal('e-cliente', item.cliente);
+    setVal('e-estatus', item.estatus);
+    setVal('e-notaentrega', item.notaEntrega || '');
+    setVal('e-origen', item.origen || '');
+    setVal('e-destino', item.destino || '');
+    setVal('e-fechaenvio', item.fechaEnvio || '');
+    setVal('e-receptor', item.destinatario || '');
     
     const badge = document.getElementById('edit-badge-codigo');
     if (badge) badge.innerText = `Modificando: ${item.codigo}`;
 
+    if (typeof switchEditSubTab === 'function') {
+        switchEditSubTab('envio');
+    }
+
     switchEnvioMode('edicion');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Atajos de teclado
@@ -408,8 +423,11 @@ function populateGrid(data) {
             <td>${item.fechaMod}</td>
             <td>${item.usuarioMod}</td>
             <td class="text-center">
-                <button class="btn btn-ghost btn-sm" title="Editar envío ${item.codigo}" onclick="editEnvio('${item.codigo}')" style="padding: 4px 8px;">
-                    ✏️
+                <button class="btn-table-action" title="Editar envío ${item.codigo}" onclick="editEnvio('${item.codigo}')" aria-label="Editar">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
                 </button>
             </td>
         `;
