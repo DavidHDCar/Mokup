@@ -6,7 +6,7 @@
     <title>STC 2.0 — Sistema Torre de Control</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Dancing+Script:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Marck+Script&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,16 +59,16 @@
         .brand-block {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             text-decoration: none;
             cursor: pointer;
         }
 
         .brand-logo-svg {
-            width: 30px;
-            height: 36px;
+            width: 32px;
+            height: 38px;
             flex-shrink: 0;
-            filter: drop-shadow(0 0 8px rgba(0, 103, 120, 0.45));
+            filter: drop-shadow(0 0 8px rgba(0, 189, 214, 0.35));
             transition: transform 0.25s ease;
         }
 
@@ -79,44 +79,67 @@
         .brand-meta {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 3px;
+            align-items: flex-start;
+            text-align: left;
         }
 
         .brand-title-row {
             display: flex;
             align-items: baseline;
             gap: 6px;
+            flex-wrap: nowrap;
+            white-space: nowrap;
         }
 
         .brand-title {
             font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             font-weight: 800;
-            color: #FFFFFF;
+            color: var(--text-primary, #FFFFFF);
             letter-spacing: -0.02em;
+            line-height: 1;
+            white-space: nowrap;
         }
 
         .brand-version {
             font-family: var(--font-heading, 'Plus Jakarta Sans', sans-serif);
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             font-weight: 800;
-            color: #00A3BF;
+            color: var(--primary-blue, #00BDD6);
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .brand-sep {
+            color: #000000 !important;
+            font-size: 0.72rem;
+            font-weight: 800;
+            line-height: 1;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .brand-by {
+            font-family: 'Caveat', 'Dancing Script', 'Marck Script', cursive;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted, #64748B);
+            letter-spacing: 0.02em;
+            text-transform: none;
+            line-height: 1;
+            white-space: nowrap;
+            display: inline-block;
         }
 
         .brand-subtitle {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
+            font-size: 0.68rem;
+            font-weight: 500;
             color: var(--text-muted, #64748B);
-            letter-spacing: 0.12em;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
-        }
-
-            .brand-HD {
-            font-family: 'baguet script', monospace;
-            font-size: 0.65rem;
-            color: var(--text-muted, #64748B);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
+            line-height: 1.2;
         }
 
         .header-actions-block {
@@ -636,6 +659,15 @@
             color: #0F172A !important;
         }
 
+        body[data-color-mode="light"] .brand-version {
+            color: var(--primary-blue, #00BDD6) !important;
+        }
+
+        body[data-color-mode="light"] .brand-sep {
+            color: #000000 !important;
+        }
+
+        body[data-color-mode="light"] .brand-by,
         body[data-color-mode="light"] .brand-subtitle {
             color: #64748B !important;
         }
@@ -758,9 +790,11 @@
                 <div class="brand-title-row">
                     <span class="brand-title">STC</span>
                     <span class="brand-version">2.0</span>
-                    <span class="brand-HD"><B>&bull; By HD Cargo Logistics</B> &bull;</span>
+                    <span class="brand-sep">&bull;</span>
+                    <span class="brand-by">by HD Cargo Logistics</span>
+                    <span class="brand-sep">&bull;</span>
                 </div>
-                <span class="brand-subtitle">Sistema Torre de Control </span>
+                <span class="brand-subtitle">SISTEMA TORRE DE CONTROL</span>
             </div>
         </a>
 
@@ -800,7 +834,7 @@
             <div class="login-card">
                 <div class="card-header">
                     <h1 class="card-title">Acceso al sistema</h1>
-                    <p class="card-subtitle">Ingresa tu usuario y contraseña</p>
+                    <p class="card-subtitle">Usa tu cuenta corporativa de HD Cargo Logistics.</p>
                 </div>
 
                 <!-- Alerta de Error -->
