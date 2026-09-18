@@ -255,6 +255,7 @@
     <div class="main-wrapper">
         <!-- Header General Unificado STC 2.0 -->
         <header class="stc-global-topbar">
+            <!-- Izquierda: Menú Hamburguesa & Logo Adaptable Oficial -->
             <div class="stc-topbar-left">
                 <button class="stc-topbar-drawer-btn" id="stc-topbar-drawer-btn" title="Abrir Menú de Navegación">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -264,17 +265,13 @@
                     </svg>
                 </button>
                 <a href="home.html" class="stc-topbar-brand" title="HD Cargo Logistics - Inicio">
-                    <img src="hd-cargo-logistics-logo.jpg" alt="HD Cargo Logistics" class="stc-topbar-logo-img">
+                    <img src="hd-cargo-logo.svg" alt="HD Cargo Logistics" class="stc-topbar-logo-img">
                     <span class="stc-topbar-brand-title">HD Cargo Logistics</span>
                 </a>
-                <div class="stc-topbar-status-badge">
-                    <span class="stc-topbar-status-dot"></span>
-                    <span>Servicios operando</span>
-                </div>
-                <span class="stc-topbar-version-tag">PROD • v2.9.14</span>
-                <div class="stc-topbar-user-avatar" onclick="openThemeModal()" title="Configuración de Perfil y Temas Visuales">GH</div>
             </div>
-            <div class="stc-topbar-right">
+
+            <!-- Centro: STC 2.0 & TRAZO -->
+            <div class="stc-topbar-center">
                 <div class="stc-topbar-pill-stc">
                     <span class="stc-topbar-pill-dot"></span>
                     <span>STC 2.0</span>
@@ -283,6 +280,16 @@
                     <span class="stc-topbar-pill-dot"></span>
                     <span>TRAZO</span>
                 </a>
+            </div>
+
+            <!-- Derecha: Estado de Servicios, Versión y Avatar -->
+            <div class="stc-topbar-right">
+                <div class="stc-topbar-status-badge">
+                    <span class="stc-topbar-status-dot"></span>
+                    <span>Servicios operando</span>
+                </div>
+                <span class="stc-topbar-version-tag">PROD • v2.9.14</span>
+                <div class="stc-topbar-user-avatar" onclick="openThemeModal()" title="Configuración de Perfil y Temas Visuales">GH</div>
             </div>
         </header>
 
@@ -1447,6 +1454,204 @@
                         <span style="font-size: 0.68rem; color: #64748B; font-family: monospace;">#0D1914 • #162921 • #F0FDF4 • #10B981 • #D95D39</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL DE CARGA MASIVA DE ENVÍOS (Rediseño Moderno STC 2.0)
+         ========================================================================== -->
+    <div id="modal-carga-masiva" class="modal-backdrop" style="display: none;">
+        <div class="modal-card modal-card-masiva">
+            <!-- Header Modal -->
+            <div class="modal-header-masiva">
+                <div class="masiva-title-group">
+                    <div class="masiva-icon-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <div class="masiva-title-text">
+                        <h2>Carga Masiva de Envíos</h2>
+                        <p>Importa archivos Excel (.xlsx/.csv) y consulta el historial de subidas</p>
+                    </div>
+                </div>
+                <button class="btn btn-ghost btn-sm" onclick="closeCargaMasivaModal()" style="font-size: 1.25rem; line-height: 1; padding: 0.3rem 0.6rem;">&times;</button>
+            </div>
+
+            <!-- Body Modal -->
+            <div class="modal-body" style="padding-right: 0.25rem;">
+                <!-- Zona Superior: Dropzone + Descarga de Layout -->
+                <div class="masiva-upload-container">
+                    <!-- Drop Area -->
+                    <div class="masiva-dropzone" id="masiva-dropzone" onclick="document.getElementById('masiva-file-input').click()">
+                        <input type="file" id="masiva-file-input" accept=".xlsx, .xls, .csv" style="display: none;" onchange="handleMasivaFileSelected(event)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="12" y1="18" x2="12" y2="12"/>
+                            <line x1="9" y1="15" x2="15" y2="15"/>
+                        </svg>
+                        <div class="masiva-drop-text">Arrastra tu archivo aquí o <span style="color: var(--primary-blue, #00BDD6); text-decoration: underline;">examina en tu equipo</span></div>
+                        <div class="masiva-drop-subtext">Formato soportado: Excel (.xlsx) o CSV • Máx. 15MB</div>
+                        
+                        <!-- Archivo seleccionado visual pill -->
+                        <div id="masiva-selected-pill" class="masiva-selected-file-pill">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: #10B981;"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span id="masiva-selected-filename">archivo.xlsx</span>
+                            <span onclick="event.stopPropagation(); clearMasivaFileSelection();" style="cursor: pointer; opacity: 0.6; margin-left: 4px;">&times;</span>
+                        </div>
+                    </div>
+
+                    <!-- Card Descargar Layout -->
+                    <div class="masiva-layout-card">
+                        <div class="masiva-layout-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="masiva-layout-title">Plantilla Oficial</div>
+                            <div class="masiva-layout-desc">Estructura validada para importación directa</div>
+                        </div>
+                        <button type="button" class="masiva-btn-download-layout" onclick="downloadOfficialLayout()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 13px; height: 13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            <span>Descargar Layout</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Historial de Subidas Masivas -->
+                <div class="masiva-history-header">
+                    <div class="masiva-history-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px; color: var(--primary-blue);"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span>Historial de Subidas Realizadas</span>
+                    </div>
+                    <span style="font-size: 0.72rem; color: var(--text-muted);">Total: 129 registros de importación</span>
+                </div>
+
+                <div class="masiva-table-wrap">
+                    <table class="masiva-table">
+                        <thead>
+                            <tr>
+                                <th>Tipo de Carga</th>
+                                <th>Nombre del Archivo</th>
+                                <th>Fecha Modificación</th>
+                                <th>Usuario</th>
+                                <th style="text-align: center; width: 60px;">Descarga</th>
+                            </tr>
+                        </thead>
+                        <tbody id="masiva-history-tbody">
+                            <tr>
+                                <td>
+                                    <span class="masiva-file-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: var(--primary-blue);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                        Carga Masiva de Envíos
+                                    </span>
+                                </td>
+                                <td><strong style="color: var(--text-primary);">CARGA MASIVA 17-09.xlsx</strong></td>
+                                <td style="color: var(--text-muted); font-size: 0.74rem;">9/17/2026 2:01:54 PM</td>
+                                <td><span class="masiva-user-chip">👤 JFSANDOVAL</span></td>
+                                <td style="text-align: center;">
+                                    <button class="masiva-action-download-btn" onclick="downloadHistoryItem('CARGA MASIVA 17-09.xlsx')" title="Descargar este archivo">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="masiva-file-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: var(--primary-blue);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                        Carga Masiva de Envíos
+                                    </span>
+                                </td>
+                                <td><strong style="color: var(--text-primary);">CARGA MASIVA 15-09.xlsx</strong></td>
+                                <td style="color: var(--text-muted); font-size: 0.74rem;">9/15/2026 7:04:27 PM</td>
+                                <td><span class="masiva-user-chip">👤 MLPEREZ</span></td>
+                                <td style="text-align: center;">
+                                    <button class="masiva-action-download-btn" onclick="downloadHistoryItem('CARGA MASIVA 15-09.xlsx')" title="Descargar este archivo">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="masiva-file-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: var(--primary-blue);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                        Carga Masiva de Envíos
+                                    </span>
+                                </td>
+                                <td><strong style="color: var(--text-primary);">Retornos 15 Sep 26 UPS.xlsx</strong></td>
+                                <td style="color: var(--text-muted); font-size: 0.74rem;">9/15/2026 10:54:53 AM</td>
+                                <td><span class="masiva-user-chip">👤 FNROMERO</span></td>
+                                <td style="text-align: center;">
+                                    <button class="masiva-action-download-btn" onclick="downloadHistoryItem('Retornos 15 Sep 26 UPS.xlsx')" title="Descargar este archivo">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="masiva-file-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: var(--primary-blue);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                        Carga Masiva de Envíos
+                                    </span>
+                                </td>
+                                <td><strong style="color: var(--text-primary);">CARGA MASIVA 15-09-2026.xlsx</strong></td>
+                                <td style="color: var(--text-muted); font-size: 0.74rem;">9/15/2026 10:08:39 AM</td>
+                                <td><span class="masiva-user-chip">👤 MLPEREZ</span></td>
+                                <td style="text-align: center;">
+                                    <button class="masiva-action-download-btn" onclick="downloadHistoryItem('CARGA MASIVA 15-09-2026.xlsx')" title="Descargar este archivo">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="masiva-file-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: var(--primary-blue);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                        Carga Masiva de Envíos
+                                    </span>
+                                </td>
+                                <td><strong style="color: var(--text-primary);">CARGA MASIVA 14-09-2026.xlsx</strong></td>
+                                <td style="color: var(--text-muted); font-size: 0.74rem;">9/14/2026 6:26:23 PM</td>
+                                <td><span class="masiva-user-chip">👤 MLPEREZ</span></td>
+                                <td style="text-align: center;">
+                                    <button class="masiva-action-download-btn" onclick="downloadHistoryItem('CARGA MASIVA 14-09-2026.xlsx')" title="Descargar este archivo">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginación -->
+                <div class="masiva-pagination-bar">
+                    <span>Página <strong>1</strong> de <strong>129</strong></span>
+                    <div class="masiva-pagination-controls">
+                        <button class="masiva-page-btn" title="Primera página">&laquo;</button>
+                        <button class="masiva-page-btn active">1</button>
+                        <button class="masiva-page-btn">2</button>
+                        <button class="masiva-page-btn">3</button>
+                        <button class="masiva-page-btn">4</button>
+                        <button class="masiva-page-btn">5</button>
+                        <button class="masiva-page-btn" title="Última página">&raquo;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Modal con Botón Naranja de Subida -->
+            <div class="masiva-modal-footer">
+                <button type="button" class="masiva-btn-cancel" onclick="closeCargaMasivaModal()">Cerrar</button>
+                <button type="button" class="masiva-btn-submit" onclick="submitCargaMasiva()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 15px; height: 15px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <span>Subir Archivo</span>
+                </button>
             </div>
         </div>
     </div>

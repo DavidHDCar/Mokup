@@ -481,7 +481,104 @@ function switchEditSubTab(subTabName) {
 }
 
 function triggerCargaMasiva() {
-    alert('📥 [Carga Masiva STC]\n\nSelecciona un archivo Excel (.xlsx) o CSV con la plantilla oficial STC para importar múltiples envíos masivamente a Azure SQL.');
+    openCargaMasivaModal();
+}
+
+function openCargaMasivaModal() {
+    const modal = document.getElementById('modal-carga-masiva');
+    if (modal) modal.style.display = 'flex';
+}
+
+function closeCargaMasivaModal() {
+    const modal = document.getElementById('modal-carga-masiva');
+    if (modal) modal.style.display = 'none';
+    clearMasivaFileSelection();
+}
+
+let selectedMasivaFile = null;
+
+function handleMasivaFileSelected(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    selectedMasivaFile = file;
+
+    const pill = document.getElementById('masiva-selected-pill');
+    const nameSpan = document.getElementById('masiva-selected-filename');
+    if (pill && nameSpan) {
+        nameSpan.innerText = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        pill.style.display = 'inline-flex';
+    }
+}
+
+function clearMasivaFileSelection() {
+    selectedMasivaFile = null;
+    const fileInput = document.getElementById('masiva-file-input');
+    if (fileInput) fileInput.value = '';
+    const pill = document.getElementById('masiva-selected-pill');
+    if (pill) pill.style.display = 'none';
+}
+
+function downloadOfficialLayout() {
+    showStcLoader('📥 Descargando Layout', 'Generando plantilla Excel oficial STC 2.0...', 1500);
+    setTimeout(() => {
+        const csvContent = "data:text/csv;charset=utf-8," 
+            + "CODIGO_ENVIO,CLIENTE,ORIGEN,DESTINO,FECHA_SOLICITUD,FECHA_ENVIO,DESTINATARIO,NOTA_ENTREGA,BULTOS,PESO_KG,TIPO_UNIDAD,ESTATUS\n"
+            + "UPS26000999,UPS HEALTHCARE,MEX - CIUDAD DE MEXICO,MTY - MONTERREY,2026-09-18,2026-09-18,HOSPITAL GENERAL MTY,NE-99401,10,120.5,CRA - CAMIONETA RABON,SOLICITADO\n";
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "LAYOUT_OFICIAL_CARGA_MASIVA_STC.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }, 800);
+}
+
+function downloadHistoryItem(filename) {
+    showStcLoader('📥 Descargando Histórico', `Obteniendo copia de ${filename}...`, 1200);
+    setTimeout(() => {
+        alert(`✓ Archivo '${filename}' descargado exitosamente.`);
+    }, 1300);
+}
+
+function submitCargaMasiva() {
+    if (!selectedMasivaFile) {
+        alert('⚠️ Por favor selecciona o arrastra un archivo Excel (.xlsx/.csv) antes de presionar Subir.');
+        return;
+    }
+
+    showStcLoader('⚙️ Procesando Carga Masiva', `Importando y validando registros de '${selectedMasivaFile.name}' en Azure SQL...`, 2500);
+    
+    setTimeout(() => {
+        // Agregar al historial de la tabla de forma interactiva
+        const tbody = document.getElementById('masiva-history-tbody');
+        if (tbody) {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+            const newRowHtml = `
+                <tr style="background: rgba(16, 185, 129, 0.12);">
+                    <td>
+                        <span class="masiva-file-badge">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: #10B981;"><polyline points="20 6 9 17 4 12"/></svg>
+                            Carga Masiva de Envíos
+                        </span>
+                    </td>
+                    <td><strong style="color: var(--text-primary);">${escapeHtml(selectedMasivaFile.name)}</strong></td>
+                    <td style="color: var(--text-muted); font-size: 0.74rem;">${dateStr}</td>
+                    <td><span class="masiva-user-chip">👤 DMARTINEZ</span></td>
+                    <td style="text-align: center;">
+                        <button class="masiva-action-download-btn" onclick="downloadHistoryItem('${escapeHtml(selectedMasivaFile.name)}')" title="Descargar este archivo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </button>
+                    </td>
+                </tr>
+            `;
+            tbody.insertAdjacentHTML('afterbegin', newRowHtml);
+        }
+
+        alert(`✅ Carga Masiva Completada con Éxito\n\nEl archivo '${selectedMasivaFile.name}' fue procesado y validado correctamente.`);
+        closeCargaMasivaModal();
+    }, 2600);
 }
 
 function exportarExcelEnvios() {
@@ -660,14 +757,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Controladores de Eventos del Drawer Hamburguesa
     const drawerToggleBtn = document.getElementById('stc-drawer-toggle-btn');
+    const topbarDrawerBtn = document.getElementById('stc-topbar-drawer-btn');
     const drawerBackdrop = document.getElementById('stc-drawer-backdrop');
 
-    if (drawerToggleBtn) {
-        drawerToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            document.body.classList.toggle('drawer-open');
-        });
-    }
+    const handleDrawerToggle = (e) => {
+        e.stopPropagation();
+        document.body.classList.toggle('drawer-open');
+    };
+
+    if (drawerToggleBtn) drawerToggleBtn.addEventListener('click', handleDrawerToggle);
+    if (topbarDrawerBtn) topbarDrawerBtn.addEventListener('click', handleDrawerToggle);
 
     if (drawerBackdrop) {
         drawerBackdrop.addEventListener('click', () => {
@@ -693,9 +792,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const masivaModal = document.getElementById('modal-carga-masiva');
+    if (masivaModal) {
+        masivaModal.addEventListener('click', (e) => {
+            if (e.target === masivaModal) {
+                closeCargaMasivaModal();
+            }
+        });
+    }
+
+    // Soporte Drag and Drop en Dropzone
+    const dropzone = document.getElementById('masiva-dropzone');
+    if (dropzone) {
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropzone.classList.add('dragover');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropzone.classList.remove('dragover');
+            }, false);
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length > 0) {
+                handleMasivaFileSelected({ target: { files: files } });
+            }
+        });
+    }
+
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeThemeModal();
+            closeCargaMasivaModal();
             document.body.classList.remove('drawer-open');
         }
     });

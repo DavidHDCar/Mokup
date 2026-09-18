@@ -1342,10 +1342,12 @@ svg {
     user-select: none;
 }
 
+/* Lado Izquierdo: Botón Menú Drawer y Logo HD Cargo Logistics */
 .stc-topbar-left {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    flex: 1;
 }
 
 /* Botón Hamburguesa Integrado al Topbar */
@@ -1377,7 +1379,7 @@ svg {
     height: 20px;
 }
 
-/* Logo HD Cargo Logistics con borde redondeado */
+/* Logo HD Cargo Logistics con colores estáticos oficiales y fondo transparente */
 .stc-topbar-brand {
     display: flex;
     align-items: center;
@@ -1386,14 +1388,28 @@ svg {
 }
 
 .stc-topbar-logo-img {
-    height: 28px;
+    height: 32px;
     width: auto;
-    max-width: 38px;
+    max-width: 44px;
     object-fit: contain;
-    border-radius: 6px;
-    background: #FFFFFF;
-    padding: 2px 3px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    transition: transform 0.2s ease;
+}
+
+body[data-color-mode="dark"] .stc-topbar-logo-img {
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.4));
+}
+
+body[data-color-mode="light"] .stc-topbar-logo-img {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+}
+
+.stc-topbar-brand:hover .stc-topbar-logo-img {
+    transform: scale(1.06);
 }
 
 .stc-topbar-brand-title {
@@ -1404,63 +1420,13 @@ svg {
     letter-spacing: -0.01em;
 }
 
-/* Badge de Estado del Sistema */
-.stc-topbar-status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: rgba(16, 185, 129, 0.12);
-    border: 1px solid rgba(16, 185, 129, 0.35);
-    color: #10B981;
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 0.22rem 0.65rem;
-    border-radius: 20px;
-    letter-spacing: 0.01em;
-}
-
-.stc-topbar-status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #10B981;
-    box-shadow: 0 0 6px #10B981;
-}
-
-/* Tag de Versión & Entorno */
-.stc-topbar-version-tag {
-    font-family: var(--font-mono, monospace);
-    font-size: 0.72rem;
-    color: var(--text-muted, #94A3B8);
-    opacity: 0.85;
-}
-
-/* Avatar de Usuario */
-.stc-topbar-user-avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--primary-blue, #006778);
-    color: #FFFFFF;
-    font-weight: 800;
-    font-size: 0.72rem;
+/* Centro: Botones STC 2.0 y TRAZO */
+.stc-topbar-center {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease;
-}
-
-.stc-topbar-user-avatar:hover {
-    transform: scale(1.1);
-}
-
-/* Lado Derecho */
-.stc-topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    gap: 0.65rem;
+    flex: 1;
 }
 
 /* Badge / Botón STC 2.0 */
@@ -1517,6 +1483,67 @@ svg {
 .stc-topbar-btn-trazo .stc-topbar-pill-dot {
     background-color: currentColor;
     box-shadow: 0 0 6px currentColor;
+}
+
+/* Lado Derecho: Estatus, Versión y Avatar */
+.stc-topbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+/* Badge de Estado del Sistema */
+.stc-topbar-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #10B981;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.22rem 0.65rem;
+    border-radius: 20px;
+    letter-spacing: 0.01em;
+}
+
+.stc-topbar-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #10B981;
+    box-shadow: 0 0 6px #10B981;
+}
+
+/* Tag de Versión & Entorno */
+.stc-topbar-version-tag {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    color: var(--text-muted, #94A3B8);
+    opacity: 0.85;
+}
+
+/* Avatar de Usuario */
+.stc-topbar-user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--primary-blue, #006778);
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 0.72rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.stc-topbar-user-avatar:hover {
+    transform: scale(1.1);
 }
 
 .topbar {
@@ -4032,3 +4059,395 @@ body[data-nav-position="floating-dock"] #heidi-chat-window {
     height: 16px !important;
     fill: #0E1726 !important;
 }
+
+/* ==========================================================================
+   MODAL DE CARGA MASIVA STC 2.0 (Diseño Moderno & Ergonómico)
+   ========================================================================== */
+.modal-card-masiva {
+    max-width: 860px !important;
+    width: 95% !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 189, 214, 0.1) !important;
+    padding: 1.5rem 1.75rem !important;
+    color: var(--text-primary) !important;
+}
+
+.modal-header-masiva {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding-bottom: 1rem !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    margin-bottom: 1.25rem !important;
+}
+
+.masiva-title-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+}
+
+.masiva-icon-badge {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 10px !important;
+    background: var(--primary-light, rgba(0, 189, 214, 0.15)) !important;
+    border: 1px solid var(--primary-border, rgba(0, 189, 214, 0.35)) !important;
+    color: var(--primary-blue, #00BDD6) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.masiva-icon-badge svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.masiva-title-text h2 {
+    font-size: 1.2rem !important;
+    font-weight: 800 !important;
+    color: var(--text-primary) !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+}
+
+.masiva-title-text p {
+    font-size: 0.75rem !important;
+    color: var(--text-muted) !important;
+    margin: 0 !important;
+}
+
+/* Upload Zone Drop Area */
+.masiva-upload-container {
+    display: grid !important;
+    grid-template-columns: 1fr 220px !important;
+    gap: 1rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+@media (max-width: 768px) {
+    .masiva-upload-container {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.masiva-dropzone {
+    border: 2px dashed var(--border-medium, rgba(255, 255, 255, 0.2)) !important;
+    border-radius: 12px !important;
+    background: var(--bg-main) !important;
+    padding: 1.2rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    position: relative !important;
+}
+
+.masiva-dropzone:hover, .masiva-dropzone.dragover {
+    border-color: var(--primary-blue, #00BDD6) !important;
+    background: var(--primary-light, rgba(0, 189, 214, 0.08)) !important;
+    box-shadow: 0 0 16px rgba(0, 189, 214, 0.15) !important;
+}
+
+.masiva-dropzone svg {
+    width: 36px !important;
+    height: 36px !important;
+    color: var(--primary-blue, #00BDD6) !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.masiva-drop-text {
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+}
+
+.masiva-drop-subtext {
+    font-size: 0.7rem !important;
+    color: var(--text-muted) !important;
+    margin-top: 2px !important;
+}
+
+.masiva-selected-file-pill {
+    display: none;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--primary-border, rgba(0, 189, 214, 0.4)) !important;
+    border-radius: 20px !important;
+    padding: 0.35rem 0.85rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    margin-top: 0.5rem !important;
+}
+
+/* Card de Descarga de Layout Oficial */
+.masiva-layout-card {
+    background: var(--bg-main) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+.masiva-layout-icon {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 50% !important;
+    background: rgba(16, 185, 129, 0.15) !important;
+    color: #10B981 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-bottom: 0.4rem !important;
+}
+
+.masiva-layout-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.masiva-layout-title {
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+}
+
+.masiva-layout-desc {
+    font-size: 0.68rem !important;
+    color: var(--text-muted) !important;
+    margin-bottom: 0.6rem !important;
+}
+
+.masiva-btn-download-layout {
+    width: 100% !important;
+    background: transparent !important;
+    border: 1px solid var(--primary-border, rgba(0, 189, 214, 0.4)) !important;
+    color: var(--primary-blue, #00BDD6) !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    padding: 0.45rem 0.6rem !important;
+    border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.4rem !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.masiva-btn-download-layout:hover {
+    background: var(--primary-blue, #00BDD6) !important;
+    color: #0E1726 !important;
+    box-shadow: 0 4px 12px rgba(0, 189, 214, 0.3) !important;
+}
+
+/* Historial de Cargas Masivas */
+.masiva-history-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 0.65rem !important;
+}
+
+.masiva-history-title {
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.45rem !important;
+}
+
+.masiva-table-wrap {
+    background: var(--bg-main) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    margin-bottom: 0.85rem !important;
+}
+
+.masiva-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 0.78rem !important;
+}
+
+.masiva-table th {
+    background: var(--bg-card) !important;
+    color: var(--text-muted) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 0.04em !important;
+    padding: 0.55rem 0.85rem !important;
+    text-align: left !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+}
+
+.masiva-table td {
+    padding: 0.55rem 0.85rem !important;
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    vertical-align: middle !important;
+}
+
+.masiva-table tbody tr:hover {
+    background: var(--primary-light, rgba(0, 189, 214, 0.06)) !important;
+}
+
+.masiva-table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+.masiva-file-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    font-weight: 600 !important;
+}
+
+.masiva-user-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    background: var(--bg-card) !important;
+    padding: 0.15rem 0.5rem !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--border-subtle) !important;
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+}
+
+.masiva-action-download-btn {
+    background: transparent !important;
+    border: 1px solid var(--border-subtle) !important;
+    color: var(--primary-blue, #00BDD6) !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+}
+
+.masiva-action-download-btn:hover {
+    background: var(--primary-blue, #00BDD6) !important;
+    color: #0E1726 !important;
+    border-color: var(--primary-blue, #00BDD6) !important;
+}
+
+.masiva-action-download-btn svg {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+/* Paginador Masiva */
+.masiva-pagination-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-size: 0.75rem !important;
+    color: var(--text-muted) !important;
+    margin-bottom: 1.25rem !important;
+}
+
+.masiva-pagination-controls {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.3rem !important;
+}
+
+.masiva-page-btn {
+    min-width: 28px !important;
+    height: 28px !important;
+    padding: 0 0.4rem !important;
+    border-radius: 6px !important;
+    background: var(--bg-main) !important;
+    border: 1px solid var(--border-subtle) !important;
+    color: var(--text-primary) !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.15s ease !important;
+}
+
+.masiva-page-btn:hover {
+    border-color: var(--primary-blue, #00BDD6) !important;
+    color: var(--primary-blue, #00BDD6) !important;
+}
+
+.masiva-page-btn.active {
+    background: var(--primary-blue, #00BDD6) !important;
+    color: #0E1726 !important;
+    border-color: var(--primary-blue, #00BDD6) !important;
+    font-weight: 800 !important;
+}
+
+/* Footer Modal Masiva */
+.masiva-modal-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0.75rem !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid var(--border-subtle) !important;
+}
+
+.masiva-btn-cancel {
+    padding: 0.55rem 1.2rem !important;
+    border-radius: 8px !important;
+    background: var(--bg-main) !important;
+    border: 1px solid var(--border-subtle) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    font-size: 0.82rem !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+}
+
+.masiva-btn-cancel:hover {
+    background: rgba(239, 68, 68, 0.15) !important;
+    color: #EF4444 !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.masiva-btn-submit {
+    padding: 0.55rem 1.4rem !important;
+    border-radius: 8px !important;
+    background: #F59E0B !important;
+    border: none !important;
+    color: #0F172A !important;
+    font-weight: 800 !important;
+    font-size: 0.82rem !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.45rem !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3) !important;
+}
+
+.masiva-btn-submit:hover {
+    background: #D97706 !important;
+    color: #FFFFFF !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45) !important;
+}
+

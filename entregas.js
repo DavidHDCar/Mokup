@@ -687,14 +687,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Controladores de Eventos del Drawer Hamburguesa
     const drawerToggleBtn = document.getElementById('stc-drawer-toggle-btn');
+    const topbarDrawerBtn = document.getElementById('stc-topbar-drawer-btn');
     const drawerBackdrop = document.getElementById('stc-drawer-backdrop');
 
-    if (drawerToggleBtn) {
-        drawerToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            document.body.classList.toggle('drawer-open');
-        });
-    }
+    const handleDrawerToggle = (e) => {
+        e.stopPropagation();
+        document.body.classList.toggle('drawer-open');
+    };
+
+    if (drawerToggleBtn) drawerToggleBtn.addEventListener('click', handleDrawerToggle);
+    if (topbarDrawerBtn) topbarDrawerBtn.addEventListener('click', handleDrawerToggle);
 
     if (drawerBackdrop) {
         drawerBackdrop.addEventListener('click', () => {
